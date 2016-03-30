@@ -1,0 +1,56 @@
+canvas {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: transparent;
+}
+
+#backgroundCanvas{   
+    background-color: black;    
+}
+
+#flash-effect{
+    background-color: ghostwhite;
+    display: none;
+}
+
+#word-displayer{
+    position: absolute;
+    width: 40%; /* Set your desired with */
+    height: auto;
+    z-index: 2; /* Make sure its above other items. */
+    top: 5%;
+    left: 50%;
+    margin-left: -20%; /* Your width divided by 2. */
+    padding: 5px;
+    border-radius: 15px;
+    text-align: center;
+    font-family: monaco, Helvetica, monospace, sans-serif;
+    color: #656503;
+    background-color: transparent;
+}
+
+#controlpanel{
+    position: absolute;
+    width: 50px; /* Set your desired with */
+    height: auto;
+    z-index: 2; /* Make sure its above other items. */
+    top: 5%;
+    left: 15%;
+    margin-left: 25px; /* Your width divided by 2. */
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    overflow: hidden;
+    font-family: monospace, sans-serif;
+    color: #e0e014;
+    background-color: honeydew; 
+}
+
+
+
+
+
+
