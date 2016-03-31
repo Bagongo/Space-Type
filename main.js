@@ -1,9 +1,7 @@
-//wrapping all our code elements into a self-executing function to prevent external (hacking) access....
-//(NOT strictly necessary since '(document).ready(function){};' has already wrapping functionality....)
-
-(function(){ 
     $(document).ready(function(){
-    
+        
+        var gametext = "To type professionally you have to use home row. If you want to learn more about home row you can visit our homerow tab.\nThere are many coding languages.\nIs Pluto a planet? Many argue that Pluto isn't a planet, but what do you think? Pluto is a mysterious planet. It takes 15.1 years to get to Pluto in a shuttle.";
+            
         var game = {};
         
         /* TODO: manage canvases size programatically from here????
@@ -37,11 +35,12 @@
         
         game.player = {
             x : game.centerX - 61,
-            y : game.centerY * 3/2,
+            y : game.height + 350,
             yStart : game.centerY * 3/2,
             width : 112,
             height : 75,
-            animte : false
+            animate : false,
+            beenOut : true
         };
         
         game.inertialState = true;
@@ -63,12 +62,10 @@
         //init function - starting point of the game interactivity
         function init(){
                         
-            addStars(500, game.starFrequency)
+            addStars(500, 1)
             
             //draws the player TODO: create function to draw all elements!!!! 
-            game.playerContext.drawImage(game.images[0], game.player.x, game.player.y);
-            
-            //console.log("from Init(): " + game.textsArray);
+            game.playerContext.drawImage(game.images[0], game.player.x, game.player.y, game.player.width, game.player.height);
             
             selectAndDisplayText();
             
@@ -76,7 +73,7 @@
         }
                                       
         function detectTyping()
-        {
+        {            
             var typedNow = "";
             var letterIDX = 0;
             var tempTyped = "";
@@ -93,9 +90,7 @@
             
             $(document).on("keypress", function(event){
                 typedNow = String.fromCharCode(event.which);
-                
-                game.player.animate = true;
-                
+                                
                 if(game.currentText.charAt(letterIDX) == typedNow)
                 {
                     game.inertialState = false;
@@ -134,8 +129,9 @@
             });   
         }
         
-        function pullAndFormatText(filepath)
+        function pullAndFormatText(text)
         {
+            /*Use Ajax call when some file will be online or scrap from file or pull form DB....
             $.ajax({
                 type: "GET",
                 url: filepath,
@@ -149,11 +145,19 @@
                     }                  
                     init();
                 }
-            });
+            }); */
+            
+            game.textsArray = text.split("\n");
+            for(i in game.textsArray)
+            {
+                if(game.textsArray[i] == "")
+                    game.textsArray.splice(i,1);
+            }                  
+            init();          
         } 
 
-        function selectAndDisplayText(){
-    
+        function selectAndDisplayText()
+        {    
             $(document).off();            
             
             game.currentText = game.textsArray[getRandomInt(0, game.textsArray.length - 1)];
@@ -161,13 +165,15 @@
             var htmlToFill = "";           
             for(var i=0; i<game.currentText.length; i++)
                 htmlToFill += "<span id='char"+i+"'>"+game.currentText[i]+"</span>";
-                        
-            $("#word-displayer").slideUp("250", function(){
-                        $(this).html(htmlToFill);
-            });
             
-            $("#flash-effect").fadeIn(500).fadeOut(500);            
-            $("#word-displayer").slideDown("250", detectTyping());  
+            game.player.animate = true;
+            
+            $("#word-displayer").slideUp("250", function(){
+                $(this).html(htmlToFill);
+            });      
+            $("#flash-effect").delay(800).fadeIn(500).fadeOut(500, function(){
+                $("#word-displayer").slideDown("250", detectTyping());  
+            });            
         }
 
         function starsThrusting(upThrust)
@@ -197,25 +203,23 @@
                 game.starFrequency = 1;
             }
         }
-        
+                
         function shipAnimation()
         {
-            var beenOut = false;
-            game.player.y -= 4;
+            game.player.y -= 9;
             
-            if(game.player.y < -100)
+            if(game.player.y < - 75)
             {
-                game.player.y = game.height + 100;
-                beenOut = true;
+                game.player.y = game.height + 350;
+                game.player.beenOut = true;
             }
-            if(game.player.y > game.player.yStart && beenOut)
+            
+            if(game.player.y < game.player.yStart && game.player.beenOut)
             {
                 game.player.y = game.player.yStart;
-                beenOut = false;
+                game.player.beenOut = false;
                 game.player.animate = false;
             }
-            
-            //console.log(game.player.y + " " + beenOut);
         }
         
         //updates all the data regarding game objects
@@ -237,14 +241,18 @@
             if(game.player.animate)
                 shipAnimation();
                 
-            $("#controlpanel").html(game.starAcceleration);               
+            $("#controlpanel").html(game.starAcceleration);
         }
         
         //renders the changes to game objects occured in 'update'
         function render(){
             
+            if(game.player.animate)
+            {
+                game.playerContext.clearRect(game.player.x, 0, game.player.width, game.height);
+                game.playerContext.drawImage(game.images[0], game.player.x, game.player.y, game.player.width, game.player.height);
+            }
             
-             
             game.backgroundContext.fillStyle = "white";            
             game.backgroundContext.clearRect(0, 0, game.width, game.height); //clears the screen on every interval
 
@@ -328,7 +336,7 @@
         function checkImagesLoading()
         {
             if(game.loadedImages >= game.requiredImages)
-                pullAndFormatText("SpaceType_paragraphs.txt"); //if all the imgs are there we can pull the text from the text file....
+                pullAndFormatText(gametext); //if all the imgs are there we can pull the text....
             else
             {
                 setTimeout(function(){
@@ -344,7 +352,7 @@
         checkImagesLoading(); 
         
     });
-})();
+
 
 //returns the supported version of requestAnimationFrame (OR returns custom 1000/60)
 window.requestAnimFrame = (function(){

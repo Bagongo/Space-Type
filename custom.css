@@ -16,6 +16,11 @@ canvas {
     display: none;
 }
 
+#text-content{
+    background-color: black;
+    display: none;    
+}
+
 #word-displayer{
     position: absolute;
     width: 40%; /* Set your desired with */
