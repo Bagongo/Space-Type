@@ -73,7 +73,7 @@
             
             if(game.currentLevel == 0)
             {
-                $("<br /><br />" + htmlToFill).appendTo($("#word-displayer"));
+                $("<br />" + htmlToFill).appendTo($("#word-displayer"));
                 $("#word-displayer").delay(800).slideDown("250", detectTyping());
                 return;
             }
