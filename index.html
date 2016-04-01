@@ -11,21 +11,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
  
     <link rel="stylesheet" type="text/css" href="custom.css" />
-    
-    <script type="text/javascript" src="main.js"></script>   
+     
 </head>
     
 <body>
-    
-    <div id="text-content">"To type professionally you have to use home row. If you want to learn more about home row you can visit our homerow tab.
-        
-        There are many coding languages.
-        
-        Is Pluto a planet? Many argue that Pluto isn't a planet, but what do you think? Pluto is a mysterious planet. It takes 15.1 years to get to Pluto in a shuttle."
-    </div>
         
     <div id="word-displayer">
-        LOADING....
+        <span id="intro-message">
+            WELCOME!<br/>
+            To proceed onto your journey you'll have to type what's on the screen (case-sensitively).<br/>
+            Try to be as precise and fast as you can!<br/>
+            Once you are ready to start, type:</span>
     </div>
     
     <div id="controlpanel"></div>
@@ -33,7 +29,14 @@
     <canvas id="backgroundCanvas" width="800" height="600"></canvas>
     <canvas id="playerCanvas" width="800" height="600"></canvas>
     <canvas id="flash-effect" width="800" height="600"></canvas>
-   
+    
+    <script type="text/javascript" src="game.js"></script>
+    <script type="text/javascript" src="ship.js"></script>
+    <script type="text/javascript" src="background_manager.js"></script>
+    <script type="text/javascript" src="main.js"></script>  
+
+
+           
 </body>
 </html>
 

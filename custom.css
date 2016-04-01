@@ -16,13 +16,13 @@ canvas {
     display: none;
 }
 
-#text-content{
-    background-color: black;
-    display: none;    
+#intro-message{
+    color: green;
 }
 
 #word-displayer{
     position: absolute;
+    display: none;
     width: 40%; /* Set your desired with */
     height: auto;
     z-index: 2; /* Make sure its above other items. */
