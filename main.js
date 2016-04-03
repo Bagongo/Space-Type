@@ -1,14 +1,20 @@
                 
         function init(){
                         
-            addStars(500, 1)
+            addStars(500, 1)            
+            ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
             
-            //draws the player TODO: create function to draw all elements!!!! 
-            ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);           
             shipAnimation();
             
-            levelManager();
+            game.currentText = game.textsArray[game.currentLevel];
             
+            var htmlToFill = "";           
+            for(var i=0; i<game.currentText.length; i++)
+                htmlToFill += "<span id='char"+i+"'>"+game.currentText[i]+"</span>";
+
+                $("<br />" + htmlToFill).appendTo($("#word-displayer"));
+                $("#word-displayer").delay(800).slideDown("250", detectTyping);
+                        
             loop();           
         }
         

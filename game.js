@@ -10,7 +10,9 @@
             requiredImages : 0,
             currentText : "",
             textsArray : [],
-            currentLevel : 0
+            currentLevel : 0,
+            errorCount : 0,
+            keyStrokes: 0
         }        
         game.centerX = game.width / 2;
         game.centerY = game.height / 2;
@@ -48,68 +50,59 @@
         }
 
         function levelManager()
-        {            
-            if(game.currentLevel == 0)
-            {
-                game.currentText = game.textsArray[game.currentLevel];
-                formatAndDisplayText();
-            }
-            else
-            {                 
-                //NOTE: skips first element of the text array and randomizes text picking
-                //change once developing campaing modality!!!!
+        {       
+                game.errorCount = 0;
+                game.keyStrokes = 0;
+                game.currentLevel++;
                 game.currentText = game.textsArray[getRandomInt(1, game.textsArray.length - 1)];
-                formatAndDisplayText();                
-            }             
+                formatAndDisplayText();                            
         }
         
         function formatAndDisplayText()
-        {    
-            $(document).off();            
-                        
+        {                            
             var htmlToFill = "";           
             for(var i=0; i<game.currentText.length; i++)
                 htmlToFill += "<span id='char"+i+"'>"+game.currentText[i]+"</span>";
-            
-            if(game.currentLevel == 0)
-            {
-                $("<br />" + htmlToFill).appendTo($("#word-displayer"));
-                $("#word-displayer").delay(800).slideDown("250", detectTyping());
-                return;
-            }
-           
+
             shipAnimation();
             
             $("#word-displayer").slideUp("250", function(){
                 $(this).html(htmlToFill);
             });      
             $("#flash-effect").delay(800).fadeIn(500).fadeOut(500, function(){
-                $("#word-displayer").slideDown("250", detectTyping());  
+                $("#word-displayer").slideDown("250", detectTyping);  
             });            
         }
         
         function detectTyping()
-        { 
-            $("#controlpanel").html(game.currentLevel);
-            
+        {             
             var typedNow = "";
             var letterIDX = 0;
             var tempTyped = "";
+            var errorMarked = false;
+            
+            $(document).on("keypress", function(){
+                game.keyStrokes++;
+            });
             
             $(document).on("keyup", function(){
                 
+                $("#controlpanel").html(game.errorCount);
+
+                errorMarked = false;
                 ship.inertialState = true;
                 background.residualAcceleration = background.starAcceleration;
                 residualFrequency = background.starFrequency;
                 
                 if(tempTyped == game.currentText)
-                { 
-                    game.currentLevel++;
+                {
+                    $(document).off();            
                     levelManager();
                 }
             });                      
             
             $(document).on("keypress", function(event){
+                
                 typedNow = String.fromCharCode(event.which);
                                 
                 if(game.currentText.charAt(letterIDX) == typedNow)
@@ -132,7 +125,13 @@
                     //console.log(tempTyped);
                 }
                 else
-                {
+                {                       
+                    if(!errorMarked)
+                    {
+                        errorMarked = true;
+                        game.errorCount++;
+                    }                   
+                    
                     if(game.currentText.charAt(letterIDX) == " ")
                         $("#char" + letterIDX).text("_");
                     
