@@ -11,9 +11,12 @@
             currentText : "",
             textsArray : [],
             currentLevel : 0,
+            actualLevel: true,
+            lvlTime : 0,
             errorCount : 0,
             keyStrokes: 0
-        }        
+        }
+        
         game.centerX = game.width / 2;
         game.centerY = game.height / 2;
                 
@@ -49,25 +52,48 @@
             init();          
         }
 
-        function levelManager()
-        {       
+        function levelAndScoreMan()
+        {             
+            if(game.actualLevel)
+            {
+                game.currentLevel++;
                 game.errorCount = 0;
                 game.keyStrokes = 0;
-                game.currentLevel++;
-                game.currentText = game.textsArray[getRandomInt(1, game.textsArray.length - 1)];
-                formatAndDisplayText();                            
+                formatAndDisplayText();     
+            }
+            else
+            {
+                var time = (($.now() - game.lvlTime)/1000).toFixed(2);
+                var wpm = ((game.keyStrokes / 5) / (time/60)).toFixed(1);
+                var accuracy = Math.round((game.keyStrokes - game.errorCount) / game.keyStrokes * 100).toFixed(1);               
+                formatAndDisplayText(time, accuracy, wpm);            
+            }                           
         }
         
-        function formatAndDisplayText()
-        {                            
-            var htmlToFill = "";           
-            for(var i=0; i<game.currentText.length; i++)
-                htmlToFill += "<span id='char"+i+"'>"+game.currentText[i]+"</span>";
-
+        function formatAndDisplayText(time, accuracy, wpm)
+        { 
             shipAnimation();
+
+            var fixedText = "";
+            var textToType = ""; 
+                       
+            if(time)
+            {
+                game.currentText = game.textsArray[0];
+                fixedText = "GOOD TYPING!<br /><br />Your stats:<br />----------------<br />Time - " + time + "s" + "<br />Accuracy - " + accuracy + "%" + "<br />WPM - "+ wpm +"<br />----------------<br />Ready for another ride? <br /><br />";
+                game.actualLevel = true;
+            }
+            else
+            {
+                game.currentText = game.textsArray[getRandomInt(1, game.textsArray.length - 1)];
+                game.actualLevel = false;
+            }
+           
+            for(var i=0; i<game.currentText.length; i++)
+                textToType += "<span id='char"+i+"'>"+game.currentText[i]+"</span>";
             
             $("#word-displayer").slideUp("250", function(){
-                $(this).html(htmlToFill);
+                $(this).html("<span style='color:green;'>"+fixedText+"</span>" + textToType);
             });      
             $("#flash-effect").delay(800).fadeIn(500).fadeOut(500, function(){
                 $("#word-displayer").slideDown("250", detectTyping);  
@@ -80,15 +106,14 @@
             var letterIDX = 0;
             var tempTyped = "";
             var errorMarked = false;
+            game.lvlTime = $.now();
             
             $(document).on("keypress", function(){
                 game.keyStrokes++;
             });
             
             $(document).on("keyup", function(){
-                
-                $("#controlpanel").html(game.errorCount);
-
+    
                 errorMarked = false;
                 ship.inertialState = true;
                 background.residualAcceleration = background.starAcceleration;
@@ -97,7 +122,7 @@
                 if(tempTyped == game.currentText)
                 {
                     $(document).off();            
-                    levelManager();
+                    levelAndScoreMan();
                 }
             });                      
             
