@@ -1,10 +1,12 @@
+    
     var background = {
-        context : document.getElementById("backgroundCanvas").getContext("2d"),
-        stars : [],
-        starFrequency : 1,
-        starAcceleration : 1,
-        residualAcceleration : 1,
-        residualFrequency : 1
+    context : document.getElementById("backgroundCanvas").getContext("2d"),
+    stars : [],
+    starFrequency : 1,
+    starAcceleration : 1,
+    maxAcceleration: 25,
+    residualAcceleration : 1,
+    residualFrequency : 1
     }
 
     function addStars(num, type)
@@ -12,7 +14,7 @@
         var starH;
         var starS;
         var starSpeed;
-
+     
         for(var i=0;i<num; i++)
         {
             if(type == 1)
@@ -57,14 +59,27 @@
     {
         if(onward)
         {
-            background.starAcceleration = Math.min(20, background.starAcceleration + 1);
-            background.starFrequency = Math.max(1, background.starAcceleration/4);
+            background.starAcceleration = Math.min(background.maxAcceleration, background.starAcceleration + 1);
+            background.starFrequency = Math.max(1, background.starAcceleration/4);            
+            
+            /*
+            if(!thrustFx.paused)
+                thrustFx.currentTime=0;
+            else
+            {
+                thrustFx.play();
+            }*/           
         }
         else
         {
             background.starAcceleration =  Math.max(1, background.starAcceleration - 1);
             background.starFrequency = Math.max(1, background.starAcceleration/4);
-        }                    
+            
+            if(!brakeFx.paused)
+                brakeFx.currentTime=0;
+            else
+                brakeFx.play();
+        }
     }
 
     function decelarateStars(time)

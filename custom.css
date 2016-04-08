@@ -1,6 +1,15 @@
+#gamescreen{
+    position: relative;
+    max-width: 800px;
+    min-width: 800px;
+    margin: 0 auto;
+}
+
+#gamescreen canvas, #word-displayer {
+  position: absolute;
+}
+
 canvas {
-    position: absolute;
-    top: 10px;
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -21,15 +30,15 @@ canvas {
 }
 
 #word-displayer{
-    position: absolute;
     display: none;
-    width: 40%; /* Set your desired with */
     height: auto;
     z-index: 2; /* Make sure its above other items. */
-    top: 5%;
-    left: 50%;
-    margin-left: -20%; /* Your width divided by 2. */
-    padding: 5px;
+    width:80%;  
+    margin: 0 auto;
+    top: 15px;
+    left: 0;
+    right: 0;
+    padding: 25px;
     border-radius: 15px;
     text-align: center;
     font-family: monaco, Helvetica, monospace, sans-serif;

@@ -14,6 +14,9 @@
     {
         ship.animate = true;
         ship.y -= 9;
+        
+        if(!game.actualLevel && game.currentLevel !== 0)
+            animationFx.play();
 
         if(ship.y < - 75)
         {
@@ -24,6 +27,7 @@
         if(ship.y < ship.yMark && ship.beenOut)
         {
             ship.y = ship.yMark;
+            ship.silent = false;
             ship.beenOut = false;
             ship.animate = false;
         }

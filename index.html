@@ -13,31 +13,35 @@
     <link rel="stylesheet" type="text/css" href="custom.css" />
      
 </head>
+  
     
 <body>
+    
+    <div id="gamescreen">
+
+        <div id="controlpanel"></div>
         
-    <div id="word-displayer">
-        <span id="intro-message">
-            WELCOME!<br/>
-            To proceed onto your journey you'll have to type the text on the screen (case-sensitively).<br/>
-            Try to be as precise and fast as you can!<br/>
-            Once you are ready to start, type:<br />
-        </span>
+        <canvas id="backgroundCanvas" width="800" height="600"></canvas>
+        <canvas id="playerCanvas" width="800" height="600"></canvas>
+        <canvas id="flash-effect" width="800" height="600"></canvas>
+        
+        <div id="word-displayer">
+            <span id="intro-message">
+                WELCOME TO SPACE TYPE!<br /><br />
+                To proceed onto your journey you'll have to type the text on the screen (case-sensitively).<br />
+                Try to be as precise and fast as you can!<br />
+                Once you are ready to start, type:<br />
+            </span>
+        </div>
+
     </div>
     
-    <div id="controlpanel"></div>
-
-    <canvas id="backgroundCanvas" width="800" height="600"></canvas>
-    <canvas id="playerCanvas" width="800" height="600"></canvas>
-    <canvas id="flash-effect" width="800" height="600"></canvas>
-    
-    <script type="text/javascript" src="game.js"></script>
-    <script type="text/javascript" src="ship.js"></script>
-    <script type="text/javascript" src="background_manager.js"></script>
-    <script type="text/javascript" src="main.js"></script>  
-
-
-           
+        <script type="text/javascript" src="howler.js.min"></script>           
+        <script type="text/javascript" src="game.js"></script>
+        <script type="text/javascript" src="ship.js"></script>
+        <script type="text/javascript" src="background_manager.js"></script>
+        <script type="text/javascript" src="main.js"></script>  
+          
 </body>
 </html>
 

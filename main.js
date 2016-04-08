@@ -4,7 +4,7 @@
             addStars(500, 1)            
             ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
             
-            shipAnimation();
+            ship.animate = true;
               
             game.currentText = game.textsArray[0];           
             var textToType = "" ;
@@ -14,6 +14,8 @@
                 
                 $("<br />" + textToType).appendTo("#word-displayer");         
                 $("#word-displayer").slideDown("250", detectTyping);
+            
+            //prompt();
                                                                             
             loop();           
         }
@@ -24,12 +26,13 @@
             updateStars();
             
             if(ship.inertialState)
-                decelarateStars(2);
+                decelarateStars(2.5);
             
             if(ship.animate)
                 shipAnimation();
                 
-            //$("#controlpanel").html(ship.x + "\n" + ship.y);
+            $("#controlpanel").html("lvl - " + game.currentLevel + "\nactualLvl :" + game.actualLevel);
+
         }
         
         function render(){
@@ -62,6 +65,33 @@
 
             update();
             render();
+        }
+
+        function pullAndPrepareText(text)
+        {
+            /*Use Ajax call when some file will be online or scrap from file or pull form DB....
+            $.ajax({
+                type: "GET",
+                url: filepath,
+                dataType: "text",
+                success: function(text){
+                    game.textsArray = text.split("\n");
+                    for(i in game.textsArray)
+                    {
+                        if(game.textsArray[i] == "")
+                            game.textsArray.splice(i,1);
+                    }                  
+                    init();
+                }
+            }); */
+            
+            game.textsArray = text.split("\n");
+            for(i in game.textsArray)
+            {
+                if(game.textsArray[i] == "")
+                    game.textsArray.splice(i,1);
+            }                  
+            init();          
         }
         
         //initialize and keep count of how many images get successfully loaded....  
