@@ -30,9 +30,10 @@
             
             if(ship.animate)
                 shipAnimation();
-                
-            $("#controlpanel").html("lvl - " + game.currentLevel + "\nactualLvl :" + game.actualLevel);
-
+            
+            engineFxMan();
+                        
+            $("#controlpanel").html(engineFx.rate() + "\n" + background.starAcceleration);
         }
         
         function render(){

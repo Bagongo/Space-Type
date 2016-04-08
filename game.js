@@ -26,16 +26,14 @@
         brakeFx.volume = 0.2;
         animationFx.volume = 0.2;
 
-        /*var fx = new Howl({
-            urls: ["sound/engine.ogg"],
+        var engineFx = new Howl({
+            src: ["sound/engine.ogg"],
             autoplay: false,
             loop: true,
             volume: 0.1,
             rate: 0.4
         });           
-        fx.play();
-        fx.rate = 2;
-        */
+        engineFx.play();
                         
         //function to get random int within a specified range
         function getRandomInt(min, max) {
@@ -85,7 +83,7 @@
             });      
             $("#flash-effect").delay(800).fadeIn(500).fadeOut(500, function(){
                 $("#word-displayer").slideDown("250", detectTyping);  
-            });  
+            });
             
             shipAnimation();
         }

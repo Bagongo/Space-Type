@@ -5,7 +5,7 @@
     starFrequency : 1,
     starAcceleration : 1,
     maxAcceleration: 25,
-    residualAcceleration : 1,
+    residualAcceleration : 0,
     residualFrequency : 1
     }
 
@@ -45,7 +45,7 @@
     }
 
     function updateStars()
-    {
+    {               
         for(i in background.stars)
         {     
             background.stars[i].y += (background.stars[i].speed * background.starAcceleration);
@@ -60,15 +60,7 @@
         if(onward)
         {
             background.starAcceleration = Math.min(background.maxAcceleration, background.starAcceleration + 1);
-            background.starFrequency = Math.max(1, background.starAcceleration/4);            
-            
-            /*
-            if(!thrustFx.paused)
-                thrustFx.currentTime=0;
-            else
-            {
-                thrustFx.play();
-            }*/           
+            background.starFrequency = Math.max(1, background.starAcceleration/4);
         }
         else
         {
@@ -87,11 +79,23 @@
         if (background.starAcceleration > 1)
         {
             background.starAcceleration -= background.residualAcceleration / (60 * time);
-            background.starFrequency -= residualFrequency / (time * 60 * 4);  
+            background.starFrequency -= residualFrequency / (time * 60 * 4);
         }
         else
         {
             background.starAcceleration = 1;
             background.starFrequency = 1;
         }
+    }
+
+    function engineFxMan(time)
+    {
+        var boost = engineFx.rate();
+        
+        if(boost < background.starAcceleration/5)
+            boost += (background.starAcceleration/5 - boost) / 60;
+        else if(boost > background.starAcceleration/5)
+            boost -= (boost - background.starAcceleration/5) / 60;
+        
+        engineFx.rate(boost);
     }
