@@ -32,3 +32,34 @@
             ship.animate = false;
         }
     }
+
+    function thruster(onward)
+    {
+        if(onward)
+        {
+            background.starAcceleration = Math.min(background.maxAcceleration, background.starAcceleration + 1);
+            background.starFrequency = Math.max(1, background.starAcceleration/4);
+        }
+        else
+        {
+            background.starAcceleration =  Math.max(1, background.starAcceleration - 0.5);
+            background.starFrequency = Math.max(1, background.starAcceleration/4);
+            
+            if(!brakeFx.paused)
+                brakeFx.currentTime=0;
+            else
+                brakeFx.play();
+        }
+    }
+
+    function engineFxMan(time)
+    {
+        var boost = engineFx.rate();
+        
+        if(boost < background.starAcceleration/5)
+            boost += (background.starAcceleration/5 - boost) / 60;
+        else if(boost > background.starAcceleration/5)
+            boost -= (boost - background.starAcceleration/5) / 60;
+        
+        engineFx.rate(boost);
+    }

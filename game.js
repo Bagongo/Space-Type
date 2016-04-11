@@ -1,6 +1,5 @@
 
 //TODO: hook with database.....OR create randowords generator....
-        var gametext = "Ready!\nTo type professionally you have to use home row. If you want to learn more about home row you can visit our homerow tab.\nThere are many coding languages.\nIs Pluto a planet? Many argue that Pluto isn't a planet, but what do you think? Pluto is a mysterious planet. It takes 15.1 years to get to Pluto in a shuttle.\nThere are 100 billion stars per galaxy. Scientists estimate that there are over 10 billion galaxies in the universe.\nThe sun is really big. The sun is so big that one million earths can fit inside the Sun.\nThe first living thing to enter space were actually two dogs named Belka and Strelka. Both of them made it back alive.\n10 letters";
         
         var game = {           
             width : $("#backgroundCanvas").width(),
@@ -19,21 +18,6 @@
         
         game.centerX = game.width / 2;
         game.centerY = game.height / 2;
-
-        var brakeFx = new Audio("sound/brake.ogg");
-        var animationFx = new Audio("sound/swoosh_01.ogg"); 
-
-        brakeFx.volume = 0.2;
-        animationFx.volume = 0.2;
-
-        var engineFx = new Howl({
-            src: ["sound/engine.ogg"],
-            autoplay: false,
-            loop: true,
-            volume: 0.1,
-            rate: 0.4
-        });           
-        engineFx.play();
                         
         //function to get random int within a specified range
         function getRandomInt(min, max) {

@@ -14,9 +14,7 @@
                 
                 $("<br />" + textToType).appendTo("#word-displayer");         
                 $("#word-displayer").slideDown("250", detectTyping);
-            
-            //prompt();
-                                                                            
+                                                                                        
             loop();           
         }
         
@@ -68,9 +66,9 @@
             render();
         }
 
-        function pullAndPrepareText(text)
+        function pullAndPrepareText(filepath)
         {
-            /*Use Ajax call when some file will be online or scrap from file or pull form DB....
+            //Use Ajax call when some file will be online or scrap from file or pull form DB....
             $.ajax({
                 type: "GET",
                 url: filepath,
@@ -84,15 +82,7 @@
                     }                  
                     init();
                 }
-            }); */
-            
-            game.textsArray = text.split("\n");
-            for(i in game.textsArray)
-            {
-                if(game.textsArray[i] == "")
-                    game.textsArray.splice(i,1);
-            }                  
-            init();          
+            });       
         }
         
         //initialize and keep count of how many images get successfully loaded....  
@@ -116,7 +106,7 @@
         function checkImagesLoading()
         {
             if(game.loadedImages >= game.requiredImages)
-                pullAndPrepareText(gametext); //if all the imgs are there we can pull the text....
+                pullAndPrepareText("facts_sheet.txt"); //if all the imgs are there we can pull the text....
             else
             {
                 setTimeout(function(){
