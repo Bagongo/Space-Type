@@ -64,6 +64,46 @@ canvas {
 }
 
 
+@media (max-width: 480px) {
+        
+    #gamescreen {
+        position: relative;
+        max-width: 400px;
+        min-width: 400px;
+        margin: 0 auto;
+    }
+    
+    canvas {
+        max-width: 300px;
+        min-width: 300px;
+    }
+    
+    #word-displayer{
+        width:80%;  
+        margin: 0 auto;
+        top: 10px;
+        left: 0;
+        right: 0;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 10px;
+        font-family: monaco, Helvetica, monospace, sans-serif;
+        color: #656503;
+        background-color: transparent;
+    }    
+}
+
+@media (min-width: 481px) and (max-width: 767px) {        
+}
+
+@media (min-width: 768px) and (max-width: 979px) {       
+}
+
+@media (min-width: 980px) {        
+}
+
+
 
 
 

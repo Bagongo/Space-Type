@@ -20,18 +20,20 @@
             if(type == 1)
                 starH = Math.floor(Math.random() * game.height);
             else if(type == 2)
-                starH = - 10;
+                starH = -10;
             else if(type == 3)
                 starH = Math.floor((Math.random() * game.height) - game.height);
 
             if(Math.random() > .5)
             {
-                starS = Math.random() * getRandomInt(1,2);
+                
+                
+                starS = Math.random() * game.getRandomInt(1,2);
                 starSpeed = .5;
             }
             else
             {
-                starS = Math.random() * getRandomInt(3,4); 
+                starS = Math.random() * game.getRandomInt(3,4); 
                 starSpeed = 1;
             }
 
@@ -66,5 +68,25 @@
         {
             background.starAcceleration = 1;
             background.starFrequency = 1;
+        }
+    }
+
+
+    function thruster(onward)
+    {
+        if(onward)
+        {
+            background.starAcceleration = Math.min(background.maxAcceleration, background.starAcceleration + 1);
+            background.starFrequency = Math.max(1, background.starAcceleration/4);
+        }
+        else
+        {
+            background.starAcceleration =  Math.max(1, background.starAcceleration - 0.5);
+            background.starFrequency = Math.max(1, background.starAcceleration/4);
+            
+            if(!audio.brakeFx.paused)
+                audio.brakeFx.currentTime=0;
+            else
+                audio.brakeFx.play();
         }
     }

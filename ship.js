@@ -10,13 +10,13 @@
         beenOut : true,
     }
 
-    function shipAnimation()
+    function shipAnimation(actualLevel, currentLevel)
     {
         ship.animate = true;
         ship.y -= 9;
-        
-        if(!game.actualLevel && game.currentLevel !== 0)
-            animationFx.play();
+                
+        if(!actualLevel && currentLevel !== 0)
+            audio.animationFx.play();
 
         if(ship.y < - 75)
         {
@@ -30,25 +30,6 @@
             ship.silent = false;
             ship.beenOut = false;
             ship.animate = false;
-        }
-    }
-
-    function thruster(onward)
-    {
-        if(onward)
-        {
-            background.starAcceleration = Math.min(background.maxAcceleration, background.starAcceleration + 1);
-            background.starFrequency = Math.max(1, background.starAcceleration/4);
-        }
-        else
-        {
-            background.starAcceleration =  Math.max(1, background.starAcceleration - 0.5);
-            background.starFrequency = Math.max(1, background.starAcceleration/4);
-            
-            if(!brakeFx.paused)
-                brakeFx.currentTime=0;
-            else
-                brakeFx.play();
         }
     }
 
