@@ -49,7 +49,7 @@
             var fixedText = "";
             var textToType = ""; 
                        
-            if(time)
+            if(time || accuracy || wpm)
             {
                 game.currentText = game.textsArray[0];
                 fixedText = "GOOD TYPING!<br /><br />Your stats:<br />----------------<br />Time - " + time + "s" + "<br />Accuracy - " + accuracy + "%" + "<br />Gross WPM - "+ wpm +"<br />----------------<br />Ready for another ride? <br /><br />";
@@ -64,10 +64,14 @@
             
             $("#word-displayer").slideUp("250", function(){
                 $(this).html("<span style='color:green;'>"+fixedText+"</span>" + "<br />" + textToType);
-            });      
-            $("#flash-effect").delay(800).fadeIn(500).fadeOut(500, function(){
-                $("#word-displayer").slideDown("250", detectTyping);  
             });
+            
+            if(ship.ignitedEngine)
+                $("#flash-effect").delay(500).fadeIn(500).fadeOut(500, function(){
+                    $("#word-displayer").slideDown("250", detectTyping);  
+                });
+            else
+                $("#word-displayer").delay(1500).slideDown("250", detectTyping);
             
             shipAnimation();
         }
@@ -121,7 +125,10 @@
                     
                     tempTyped += typedNow;
                     letterIDX++;
-                    thruster(true);
+                    addLetterToSpit(typedNow);
+                    
+                    if(game.actualLevel)
+                        thruster(true);
                     //console.log(tempTyped);
                 }
                 else

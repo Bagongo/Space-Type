@@ -4,7 +4,7 @@
     stars : [],
     starFrequency : 1,
     starAcceleration : 1,
-    maxAcceleration: 35,
+    maxAcceleration: 30,
     residualAcceleration : 0,
     residualFrequency : 1
     }
@@ -60,7 +60,7 @@
         if (background.starAcceleration > 1)
         {
             background.starAcceleration -= background.residualAcceleration / (60 * time);
-            background.starFrequency -= residualFrequency / (time * 60 * 4);
+            background.starFrequency -= background.residualFrequency / (time * 60 * 4);
         }
         else
         {
@@ -68,3 +68,23 @@
             background.starFrequency = 1;
         }
     }
+
+    function thruster(onward)
+    {
+        if(onward)
+        {
+            background.starAcceleration = Math.min(background.maxAcceleration, background.starAcceleration + 1);
+            background.starFrequency = Math.max(1, background.starAcceleration/4);
+        }
+        else
+        {
+            background.starAcceleration =  Math.max(1, background.starAcceleration - 0.5);
+            background.starFrequency = Math.max(1, background.starAcceleration/4);
+            
+            if(!brakeFx.paused)
+                brakeFx.currentTime=0;
+            else
+                brakeFx.play();
+        }
+    }
+    

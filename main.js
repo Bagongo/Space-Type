@@ -1,4 +1,4 @@
-                
+        
         function init(){
                         
             addStars(500, 1)            
@@ -30,18 +30,24 @@
                 shipAnimation();
             
             engineFxMan();
-                        
-            $("#controlpanel").html(engineFx.rate() + "\n" + background.starAcceleration);
+                                    
+            $("#controlpanel").html(engineFx.rate() + "\n" + background.starAcceleration);            
         }
         
         function render(){
             
-            if(ship.animate)
+            ship.context.clearRect(ship.x, 0, ship.width, game.height);
+
+            if(ship.ignitedEngine)
             {
-                ship.context.clearRect(ship.x, 0, ship.width, game.height);
-                ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
+                if(!ship.animate && ship.lettersToSpitOut.length > 0)
+                    spitLetters(); 
+                
+                afterBurner();
             }
-            
+
+            ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
+                              
             background.context.fillStyle = "white";            
             background.context.clearRect(0, 0, game.width, game.height);
             //creates rects -stars- for every element in the background.stars array
@@ -52,7 +58,7 @@
                                                 individualStar.y, 
                                                 individualStar.size,
                                                 individualStar.size);
-            }
+            }                        
         }        
 
         function loop(){
