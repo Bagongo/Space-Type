@@ -67,15 +67,19 @@
             });
             
             if(ship.ignitedEngine)
+            {
+                animationFx.play();
+
                 $("#flash-effect").delay(500).fadeIn(500).fadeOut(500, function(){
                     $("#word-displayer").slideDown("250", detectTyping);  
                 });
+            }
             else
                 $("#word-displayer").delay(1500).slideDown("250", detectTyping);
             
-            shipAnimation();
+            ship.animate = true;
         }
-        
+    
         function detectTyping()
         {             
             var typedNow = "";
@@ -106,6 +110,9 @@
             });                      
             
             $(document).on("keypress", function(event){
+                
+                if(event.which == 32  || event.which == 39)
+                    event.preventDefault();
                 
                 typedNow = String.fromCharCode(event.which);
                                 

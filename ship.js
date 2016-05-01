@@ -15,11 +15,7 @@
     
     function shipAnimation()
     {
-        ship.animate = true;
         ship.y -= 9;
-        
-        if(!game.actualLevel && game.currentLevel !== 0)
-            animationFx.play();
 
         if(ship.y < - 75)
         {
@@ -41,7 +37,6 @@
         if(ship.y < ship.yMark && ship.beenOut)
         {
             ship.y = ship.yMark;
-            ship.silent = false;
             ship.beenOut = false;
             ship.animate = false;
         }
@@ -67,7 +62,7 @@
                 ship.lettersToSpitOut[i].y += Math.min(10, 10/background.starAcceleration);
                 ship.lettersToSpitOut[i]. x += ship.lettersToSpitOut[i].drift * (background.starAcceleration/5);
 
-                if(ship.lettersToSpitOut[i].x > x + w - xLimit *2.5)
+                if(ship.lettersToSpitOut[i].x > x + w - xLimit*2.5)
                     ship.lettersToSpitOut[i].drift = -1;
                 else if(ship.lettersToSpitOut[i].x < x + xLimit)
                     ship.lettersToSpitOut[i].drift = 1;
@@ -76,7 +71,7 @@
                     ship.lettersToSpitOut.splice(i,1);
             }    
         }
-        
+     
         updateLetters();
 
         var grV = ship.context.createLinearGradient(x, y, x+w, y);
@@ -98,7 +93,7 @@
     function addLetterToSpit(letter)
     {
         var x = ship.x + ship.width/2;
-        var y = ship.y + 50;
+        var y = ship.y + 40;
         var drift;
         var startRight = ship.letterStartRight;
         

@@ -17,25 +17,93 @@
     
 <body>
     
-    <div id="gamescreen">
-
-        <div id="controlpanel"></div>
-        
-        <canvas id="backgroundCanvas" width="800" height="600"></canvas>
-        <canvas id="playerCanvas" width="800" height="600"></canvas>
-        <canvas id="flash-effect" width="800" height="600"></canvas>
-        
-        <div id="word-displayer">
-            <span id="intro-message">
-                WELCOME TO SPACE TYPE!<br /><br />
-                To proceed onto your journey you'll have to type the text on the screen (case-sensitively).<br />
-                Try to be as precise and fast as you can!<br />
-                Once you are ready to start, type:<br />
-            </span>
-        </div>
-
+    <div id="header" class="frame-element">
+        <div id="logo">Space-type</div>
     </div>
     
+    <!-- <canvas id="cabinetBG" width="1000" height="1000"></canvas> -->
+    <div id="screenBG">
+        
+        <div id="gamescreen">
+
+            <div id="controlpanel"></div>
+
+            <canvas id="backgroundCanvas" width="800" height="600"></canvas>
+            <canvas id="playerCanvas" width="800" height="600"></canvas>
+            <canvas id="flash-effect" width="800" height="600"></canvas>
+
+            <div id="word-displayer">
+                <span id="intro-message">
+                    WELCOME TO SPACE TYPE!<br /><br />
+                    To proceed onto your journey you'll have to type the text on the screen (case-sensitively).<br />
+                    Try to be as precise and fast as you can!<br />
+                    Once you are ready to start, type:<br />
+                </span>
+            </div>
+
+        </div>
+        
+    </div>
+    
+    <div id="deck" class="frame-element">
+        
+        <svg class="deck-button">
+            <ellipse cx="75" cy="75" rx="40" ry="20"
+              style="fill:#6C006E;stroke:purple;stroke-width:8" />
+            <ellipse cx="75" cy="77" rx="30" ry="12"
+              style="fill:yellow;stroke:yellow;stroke-width:4" />
+            <text x="75" y="30" text-anchor="middle" fill="blue"
+                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px">
+                GAME
+            </text>
+        </svg> <svg class="deck-button">
+            <ellipse cx="75" cy="75" rx="40" ry="20"
+              style="fill:#6C006E;stroke:purple;stroke-width:8" />
+            <ellipse cx="75" cy="77" rx="30" ry="12"
+              style="fill:yellow;stroke:yellow;stroke-width:4" />
+            <text x="75" y="30" text-anchor="middle" fill="blue"
+                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px">
+                HI-SCORE
+            </text>
+        </svg> <svg class="deck-button">
+            <ellipse cx="75" cy="75" rx="40" ry="20"
+              style="fill:#6C006E;stroke:purple;stroke-width:8" />
+            <ellipse cx="75" cy="77" rx="30" ry="12"
+              style="fill:yellow;stroke:yellow;stroke-width:4" />
+            <text x="75" y="30" text-anchor="middle" fill="blue"
+                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px">
+                ABOUT
+            </text>
+        </svg> <svg class="deck-button">
+            <ellipse cx="75" cy="75" rx="40" ry="20"
+              style="fill:#6C006E;stroke:purple;stroke-width:8" />
+            <ellipse cx="75" cy="77" rx="30" ry="12"
+              style="fill:yellow;stroke:yellow;stroke-width:4" />
+            <text x="75" y="30" text-anchor="middle" fill="blue"
+                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px">
+                GAME
+            </text>
+        </svg> 
+        
+       
+
+                
+    </div>
+    
+    <div id="footer" class="frame-element">
+
+        <div id="coiner">
+            <form>
+            
+                <input type="text" />
+            
+            </form>
+        
+        </div>
+                    
+    </div>
+    
+        <script type="text/javascript" src="cabinet.js"></script> 
         <script type="text/javascript" src="howler.min.js"></script> 
         <script type="text/javascript" src="audio_manager.js"></script>    
         <script type="text/javascript" src="game.js"></script>

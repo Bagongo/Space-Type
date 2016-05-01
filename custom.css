@@ -1,12 +1,60 @@
-#gamescreen{
-    position: relative;
-    max-width: 800px;
-    min-width: 800px;
-    margin: 0 auto;
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #253560;
 }
 
-#gamescreen canvas, #word-displayer {
-  position: absolute;
+#header {
+    height: 175px;
+    background-color: #151f3b;
+    border-bottom: 40px solid #0d1426;
+    /* border-top: 20px solid #192c52; */
+}
+
+#logo {
+    margin: 0 auto;
+    text-align: center;
+    font-family: Verdana;
+    font-size: 7em;
+    color: green;
+    width: 800px;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    
+    -webkit-transition:text-shadow 0.5s ease-in-out;
+    -moz-transition:text-shadow 0.5s ease-in-out;
+    -o-transition:text-shadow 0.5s ease-in-out;
+    -ms-transition:text-shadow 0.5s ease-in-out;
+    transition:text-shadow 0.5s ease-in-out;
+    
+    text-shadow: rgb(255, 255, 255) 0px 0px 20px, rgb(255, 255, 255) 0px 0px 30px, rgb(0, 117, 135) 0px 0px 40px, rgb(0, 117, 135) 0px 0px 50px, rgb(0, 117, 135) 0px 0px 80px, rgb(0, 117, 135) 0px 0px 100px, rgb(0, 117, 135) 0px 0px 120px, rgb(0, 117, 135) 0px 0px 175px;
+}
+
+#logo.animate-neon {
+    text-shadow: 0 0 15px #fff, 0 0 25px #fff, 0 0 35px #007587, 0 0 45px #007587, 0 0 75px #007587, 0 0 85px #007587, 0 0 105px #007587, 0 0 155px #007587;
+}
+
+#screenBG {
+    position: relative;
+    z-index: -2;
+    max-width: 900px;
+    min-width: 900px;
+    height: 700px;
+    margin: 0 auto;
+    padding: 50px;
+    background: #4e4e4e; /* For browsers that do not support gradients */
+    /*
+    background: -webkit-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
+    background: -o-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
+    background: -moz-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
+    background: linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
+    */
+    /*
+    border-left: solid 8px black;
+    border-right: solid 8px black;
+    */
+    
 }
 
 canvas {
@@ -14,9 +62,21 @@ canvas {
     right: 0;
     margin: 0 auto;
     background-color: transparent;
+    border-radius: 40px; 
+    border: solid #272727 8px; 
 }
 
-#backgroundCanvas{   
+#gamescreen canvas, #word-displayer {
+  position: absolute;
+}
+
+#gamescreen{
+    max-width: 800px;
+    min-width: 800px;
+    margin: 0 auto;
+}
+
+#backgroundCanvas {   
     background-color: black;    
 }
 
@@ -31,15 +91,14 @@ canvas {
 
 #word-displayer{
     display: none;
+    width: 70%;
     height: auto;
     z-index: 2; /* Make sure its above other items. */
-    width:80%;  
-    margin: 0 auto;
-    top: 15px;
     left: 0;
     right: 0;
+    margin: 0 auto;
+    margin-top: 25px;
     padding: 25px;
-    border-radius: 15px;
     text-align: center;
     font-family: monaco, Helvetica, monospace, sans-serif;
     color: #656503;
@@ -51,7 +110,7 @@ canvas {
     width: 50px; /* Set your desired with */
     height: auto;
     z-index: 2; /* Make sure its above other items. */
-    top: 5%;
+    top: 10%;
     left: 15%;
     margin-left: 25px; /* Your width divided by 2. */
     padding: 5px;
@@ -63,8 +122,44 @@ canvas {
     background-color: honeydew; 
 }
 
+#deck{
+    height: 150px;
+    background-color: #0d1426;
+    text-align: center;
+    overflow: hidden;
+}
+
+.deck-button {
+    height: 175px;
+    width: 150px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#footer {
+    height: 400px;
+    text-align: center;
+    background-color: #151f3b;
+    overflow: hidden;
+}
+
+#coiner {
+    width: 700px;
+    height: 500px;
+    margin: 0 auto;
+    border: solid 20px #1a1a1a;
+    border-radius: 40px;
+    margin-top: 100px;
+    background-color: darkgrey;
+    background: -webkit-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
+    background: -o-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
+    background: -moz-linear-gradient(#4a4949, #8b8b8b, #393939, #4a4949);
+    background: linear-gradient(#4a4949, #8b8b8b, #393939, #4a4949);
+}
 
 
 
 
 
+
+ 
