@@ -19,17 +19,22 @@
 
         if(ship.y < - 75)
         {
-            if(game.actualLevel)
+            if(game.state == "game")
             {
                 ship.yMark = game.centerY;
                 ship.ignitedEngine = true;
-            }
-            else
+            }            
+            else if (game.state == "score" || game.state == "init")
             {
                 ship.yMark = game.centerY * 3/2;
                 ship.ignitedEngine = false;
             }
-            
+            else //(external input changed state)
+            {
+                ship.animate = false;
+                return;
+            }
+                            
             ship.y = game.height + 350;
             ship.beenOut = true;
         }

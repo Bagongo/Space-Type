@@ -1,20 +1,11 @@
         
         function init(){
-                        
+           
             addStars(500, 1)            
             ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
             
-            ship.animate = true;
-              
-            game.currentText = game.textsArray[0];           
-            var textToType = "" ;
+            stateManager();
             
-            for(var i=0; i<game.currentText.length; i++)
-                textToType += "<span id='char"+i+"'>"+game.currentText[i]+"</span>";
-                
-                $("<br />" + textToType).appendTo("#word-displayer");         
-                $("#word-displayer").slideDown("250", detectTyping);
-                                                                                        
             loop();           
         }
         
@@ -31,22 +22,23 @@
             
             engineFxMan();
                                     
-            $("#controlpanel").html(engineFx.rate() + "\n" + background.starAcceleration);            
+            //$("#controlpanel").html(game.state +"\n"+ game.currentLevel);            
         }
         
         function render(){
             
             ship.context.clearRect(ship.x, 0, ship.width, game.height);
-
+             
             if(ship.ignitedEngine)
             {
                 if(!ship.animate && ship.lettersToSpitOut.length > 0)
                     spitLetters(); 
-                
+
                 afterBurner();
             }
 
             ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
+
                               
             background.context.fillStyle = "white";            
             background.context.clearRect(0, 0, game.width, game.height);

@@ -31,3 +31,14 @@ $(".deck-button").hover(function(){
     $label.attr("fill", "blue")
    
 });
+
+$(".deck-button").on("click", function(){
+    
+    var labelText = $(this).children().eq(2).text().toLowerCase();
+    
+    if(game.state !== labelText)
+    {
+        alert(labelText);
+        stateManager(labelText);  
+    }
+});
