@@ -9,6 +9,8 @@ var game = {
     requiredImages : 0,
     currentText : "",
     textsArray : [],
+    introMessage: $("#intro-message").html(),
+    screenDelays: 500,
     state : null,
     prevState: null,
     currentLevel : 0,
@@ -28,66 +30,87 @@ function getRandomInt(min, max) {
 function stateManager(externalInput)
 {
     if(externalInput)
-    {
-        game.prevState = game.state;
+    {   
         game.state = externalInput;
-    }
         
-    switch (game.state)
-    {    
-        case null:
-            game.state = "init";
-            ship.animate = true;
-            formatText();
-            break;
-        case "init":
-            game.state = "game";
-            levelAndScoreMan();
-            formatText();
-            break;
-        case "score":
-            game.state = "game";
-            levelAndScoreMan();
-            formatText();
-            break;
-        case "game": 
-            game.state = "score";
-            levelAndScoreMan();
-            break;
-        case "hi-score":
-            switchScreen();
-            break;
-        default :
-            $("#word-displayer").slideUp("250", function(){
-                $(this).html("Opps!!! A state-related error has occured....");
-            }).slideDown("250");
+        switch(game.state)
+        {
+            case "play":
+                game.state = "init";
+                switchScreen();
+                break;
+            case "hi-score":
+                switchScreen();
+                break;               
+        }
+    }
+    else
+    { 
+        switch (game.state)
+        {    
+            case null:
+                game.state = "init";
+                formatText();
+                break;
+            case "init":
+            case "score":
+                game.state = "game";
+                levelAndScoreMan();
+                formatText();
+                break;
+            case "game": 
+                game.state = "score";
+                levelAndScoreMan();
+                break;
+            default :
+                $("#word-displayer").slideUp("250", function(){
+                    $(this).html("Opps!!! A state-related error has occured....");
+                }).slideDown("250");
+        }
     }
 }
 
 function switchScreen()
 {
+    ship.ignitedEngine = false;
     ship.animate = true;
-    $("#word-displayer").slideUp("250");   
+    
+    $("#word-displayer").slideUp(game.screenDelays, function(){
+        
+        if(game.state == "hi-score")
+        {
+           var displayText = "<span style='color:green;'>your high-score: </span>"; 
+        }
+        else if(game.state == "init")
+        {
+            formatText();
+            return;
+        }
+        
+        $(this).html(displayText);
+        
+    }).delay(game.screenDelays).slideDown(game.screenDelays);   
 }
 
 function screenCleared()
 {
     ship.animate = true;
     
-    $("#word-displayer").slideUp("250", function(){
+    $("#word-displayer").slideUp(game.screenDelays, function(){
         
         if(game.state == "game")
         {
-            $("#flash-effect").fadeIn("250").fadeOut("250");
+            $("#flash-effect").fadeIn(game.screenDelays/2).fadeOut(game.screenDelays/2);
             animationFx.play();            
-        } 
-        
+        }         
         stateManager();
     });
 }
 
 function levelAndScoreMan()
-{             
+{ 
+    if(game.state == "init")
+        game.currentLevel = 0;
     if(game.state == "game")
     {
         game.currentLevel++;
@@ -110,7 +133,7 @@ function formatText(time, accuracy, wpm)
 
     if(game.state == "init")
     {
-        fixedText = $("#intro-message").html();
+        fixedText = game.introMessage;
         game.currentText = game.textsArray[0];
     }
 
@@ -124,10 +147,10 @@ function formatText(time, accuracy, wpm)
     {
         game.currentText = game.textsArray[getRandomInt(1, game.textsArray.length - 1)];
     }
-
+    
         for(var i=0; i<game.currentText.length; i++)
             textToType += "<span id='char"+i+"'>"+game.currentText[i]+"</span>";
-            
+   
     $("#word-displayer").html("<span style='color:green;'>"+fixedText+"</span>" + "<br />" + textToType);
 
     displayText();
@@ -135,14 +158,7 @@ function formatText(time, accuracy, wpm)
 
 function displayText()
 {
-    var delayTime;
-
-    if(game.state == "init")
-         delayTime = 0;
-    else
-        delayTime = 500;
-
-    $("#word-displayer").delay(delayTime*3).slideDown("250", detectTyping);  
+    $("#word-displayer").delay(game.screenDelays).slideDown(game.screenDelays, detectTyping);  
 }
 
 function detectTyping()

@@ -59,7 +59,7 @@
     {
         if (background.starAcceleration > 1)
         {
-            background.starAcceleration -= background.residualAcceleration / (60 * time);
+            background.starAcceleration -= background.starAcceleration / (60 * time);
             background.starFrequency -= background.residualFrequency / (time * 60 * 4);
         }
         else

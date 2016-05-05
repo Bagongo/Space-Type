@@ -1,8 +1,9 @@
         
         function init(){
            
-            addStars(500, 1)            
-            ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
+            addStars(500, 1) 
+            
+            ship.animate = true;
             
             stateManager();
             
@@ -22,7 +23,7 @@
             
             engineFxMan();
                                     
-            //$("#controlpanel").html(game.state +"\n"+ game.currentLevel);            
+            $("#controlpanel").html(background.starAcceleration +"\n");            
         }
         
         function render(){
