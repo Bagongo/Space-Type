@@ -1,10 +1,17 @@
-var neonPhase1 = $("#logo").css("text-shadow");
-var neonPhase2 = "rgb(255, 255, 255) 0px 0px 20px, rgb(255, 255, 255) 0px 0px 30px, rgb(0, 117, 135) 0px 0px 40px, rgb(0, 117, 135) 0px 0px 50px, rgb(0, 117, 135) 0px 0px 80px, rgb(0, 117, 135) 0px 0px 100px, rgb(0, 117, 135) 0px 0px 120px, rgb(0, 117, 135) 0px 0px 175px";
+var logoContext = document.getElementById("logo").getContext("2d");
 
-//setInterval(function(){ 
-//    $("this").toggleClass("animate-neon")}, 
-//1000);
+logoContext.shadowColor = "#209ac7";
+logoContext.shadowOffsetX = 0; 
+logoContext.shadowOffsetY = 5; 
+logoContext.shadowBlur = 90;
+logoContext.font = "bold 100px monaco";
+logoContext.fillStyle = "#05a205";
+logoContext.baseline = "middle";
+logoContext.textAlign = "center";
 
+logoContext.fillText("SpaceType", 400, 110);
+logoContext.fillStyle = "green";
+logoContext.fillText("SpaceType", 400, 105);
 
 $(".deck-button").hover(function(){
     var $pushable = $(this).children().eq(1);

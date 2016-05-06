@@ -12,11 +12,10 @@
         
         function update(){
             
-            addStars(background.starFrequency, 2);           
+            addStars(neededStars(), 2);           
             updateStars();
             
-            if(ship.inertialState)
-                decelarateStars(2.5);
+            decelarateStars(2.5);
             
             if(ship.animate)
                 shipAnimation();
@@ -28,8 +27,8 @@
         
         function render(){
             
-            ship.context.clearRect(ship.x, 0, ship.width, game.height);
-             
+            ship.context.clearRect(ship.x, ship.y, ship.width, game.height - ship.y);
+                                     
             if(ship.ignitedEngine)
             {
                 if(!ship.animate && ship.lettersToSpitOut.length > 0)
@@ -39,8 +38,7 @@
             }
 
             ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
-
-                              
+                                          
             background.context.fillStyle = "white";            
             background.context.clearRect(0, 0, game.width, game.height);
             //creates rects -stars- for every element in the background.stars array

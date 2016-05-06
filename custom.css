@@ -8,27 +8,24 @@ body {
     height: 175px;
     background-color: #151f3b;
     border-bottom: 40px solid #0d1426;
+    /*padding-top: 25px;*/
+    align-content: center;
     /* border-top: 20px solid #192c52; */
 }
 
-#logo {
+/*#logo-frame {
+    width: 700px;
+    height: 120px;
     margin: 0 auto;
-    text-align: center;
-    font-family: Verdana;
-    font-size: 7em;
-    color: green;
-    width: 800px;
-    height: 100px;
-    margin-bottom: 10px;
-    padding: 10px;
-    
-    -webkit-transition:text-shadow 0.5s ease-in-out;
-    -moz-transition:text-shadow 0.5s ease-in-out;
-    -o-transition:text-shadow 0.5s ease-in-out;
-    -ms-transition:text-shadow 0.5s ease-in-out;
-    transition:text-shadow 0.5s ease-in-out;
-    
-    text-shadow: rgb(255, 255, 255) 0px 0px 20px, rgb(255, 255, 255) 0px 0px 30px, rgb(0, 117, 135) 0px 0px 40px, rgb(0, 117, 135) 0px 0px 50px, rgb(0, 117, 135) 0px 0px 80px, rgb(0, 117, 135) 0px 0px 100px, rgb(0, 117, 135) 0px 0px 120px, rgb(0, 117, 135) 0px 0px 175px;
+    position: relative;
+    background-color: transparent;
+    border: 15px solid #055f05;
+    border-radius: 70px;
+}*/
+
+#logo {
+    position: absolute;
+    background-color: transparent;
 }
 
 #logo.animate-neon {
@@ -53,27 +50,25 @@ body {
     /*
     border-left: solid 8px black;
     border-right: solid 8px black;
-    */
-    
-}
-
-canvas {
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    background-color: transparent;
-    border-radius: 40px; 
-    border: solid #272727 8px; 
-}
-
-#gamescreen canvas, #word-displayer {
-  position: absolute;
+    */    
 }
 
 #gamescreen{
-    max-width: 800px;
-    min-width: 800px;
+    width: 800px;
+    height: 600px;
     margin: 0 auto;
+    position: relative;
+    background-color: transparent;
+    border-radius: 40px; 
+    border: solid #272727 8px; 
+    overflow: hidden;
+}
+
+canvas{
+    left: 0;
+    right: 0;
+    margin: 0 auto; 
+    position: absolute;
 }
 
 #backgroundCanvas {   
@@ -81,6 +76,10 @@ canvas {
 }
 
 #flash-effect{
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    position: absolute;
     background-color: ghostwhite;
     display: none;
 }
@@ -93,6 +92,7 @@ canvas {
     display: none;
     width: 70%;
     height: auto;
+    position: absolute;
     z-index: 2; /* Make sure its above other items. */
     left: 0;
     right: 0;
@@ -110,8 +110,8 @@ canvas {
     width: 50px; /* Set your desired with */
     height: auto;
     z-index: 2; /* Make sure its above other items. */
-    top: 10%;
-    left: 15%;
+    top: 8%;
+    left: 4%;
     margin-left: 25px; /* Your width divided by 2. */
     padding: 5px;
     border-radius: 5px;

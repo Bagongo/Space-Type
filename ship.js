@@ -5,7 +5,6 @@
         yMark : game.centerY * 3/2,
         width : 120,
         height : 75,
-        inertialState : true,
         animate : false,
         beenOut : true,
         lettersToSpitOut : [],
@@ -17,7 +16,7 @@
     {
         ship.y -= 9;
 
-        if(ship.y < - 75)
+        if(ship.y < - 100)
         {
             if(game.state == "game")
             {
@@ -35,7 +34,7 @@
                 return;
             }
                             
-            ship.y = game.height + 350;
+            ship.y = game.height + 200;
             ship.beenOut = true;
         }
 

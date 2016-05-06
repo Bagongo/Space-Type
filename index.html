@@ -18,10 +18,11 @@
 <body>
     
     <div id="header" class="frame-element">
-        <div id="logo">Space-type</div>
+        <canvas id="logo" width="800" height="250"></canvas>
+        <!-- <div id="logo-frame">
+        </div> -->   
     </div>
     
-    <!-- <canvas id="cabinetBG" width="1000" height="1000"></canvas> -->
     <div id="screenBG">
         
         <div id="gamescreen">
@@ -30,7 +31,7 @@
 
             <canvas id="backgroundCanvas" width="800" height="600"></canvas>
             <canvas id="playerCanvas" width="800" height="600"></canvas>
-            <canvas id="flash-effect" width="800" height="600"></canvas>
+            <div id="flash-effect"></div>
 
             <div id="word-displayer">
                 <span id="intro-message">
@@ -44,6 +45,7 @@
         </div>
         
     </div>
+    
     
     <div id="deck" class="frame-element">
         
@@ -88,17 +90,13 @@
     <div id="footer" class="frame-element">
 
         <div id="coiner">
-            <form>
             
-                <input type="text" />
-            
-            </form>
-        
         </div>
                     
     </div>
+
     
-        <script type="text/javascript" src="cabinet.js"></script> 
+        <script type="text/javascript" src="cabinet.js"></script>
         <script type="text/javascript" src="howler.min.js"></script> 
         <script type="text/javascript" src="audio_manager.js"></script>    
         <script type="text/javascript" src="game.js"></script>

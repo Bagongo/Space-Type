@@ -176,7 +176,6 @@ function detectTyping()
     $(document).on("keyup", function(){
 
         errorMarked = false;
-        ship.inertialState = true;
         background.residualAcceleration = background.starAcceleration;
         residualFrequency = background.starFrequency;
 
@@ -196,8 +195,6 @@ function detectTyping()
 
         if(game.currentText.charAt(letterIDX) == typedNow)
         {
-            ship.inertialState = false;
-
             $("#char" + letterIDX).css("color", "green");
             $("#char" + letterIDX).animate({
                 marginRight: "1px"
