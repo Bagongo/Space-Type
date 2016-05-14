@@ -39,7 +39,7 @@ body {
     min-width: 900px;
     height: 700px;
     margin: 0 auto;
-    padding: 50px;
+    padding: 50px 50px;
     background: #4e4e4e; /* For browsers that do not support gradients */
     /*
     background: -webkit-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
@@ -133,14 +133,82 @@ canvas{
     height: 175px;
     width: 150px;
     margin-top: 20px;
-    margin-left: 20px;
+    margin-left: 50px;
+}
+
+#deck-front {
+    height: 140px;
+    background-color: #1e2c53;
+    border-top: solid 5px #142650;
+    border-bottom: solid 40px #162446;
+    padding-top: 75px;
+}
+
+#deck-front > form {
+    margin: 0 auto;
+    margin-top: -15px;
+    width: 1200px;
+    height: 50%;
+}
+
+#deck-front > form > input{
+    position: relative;
+    left: 44px;
+    top: -85px;
+    margin: 4px 4px;
+    padding: 8px;
+    border: 4px solid #293f6a;
+    border-radius: 4px;
+    background-color: #305381;
+    text-align: center;
+    font-family: Helvetica;
+    color: #ecf42b;
+    font-size: 12px;
+}
+
+#deck-front > form > input[type=submit] {
+    left: -100px;
+    top: 7px;
+    width: 85px;
+    height: 85px;
+    border: 8px solid #057100;
+    border-radius: 50%;
+    background-color: #62ce59;
+    color: whitesmoke;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 50px;
+}
+
+#logout-btn{
+    width: 100px;
+    height: 50px;
+    position: relative;
+    left: 1000px;
+    top: -100px;
+    margin-right: 40px;
+    margin-top: -70px;
+    border: 8px solid #dd7d09;
+    border-radius: 10%;
+    background-color: #fd9516;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+#deck-front > .messagedisplayer { 
+    width: 40%;
 }
 
 #footer {
-    height: 400px;
-    text-align: center;
+    height: 500px;
     background-color: #151f3b;
     overflow: hidden;
+}
+
+.messagedisplayer {
+    margin: 0 auto;
+    text-align: center;
+    background-color: white;
 }
 
 #coiner {
@@ -150,9 +218,57 @@ canvas{
     border: solid 20px #1a1a1a;
     border-radius: 40px;
     margin-top: 100px;
+    padding-top: 25px;
     background-color: darkgrey;
     background: -webkit-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
     background: -o-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
     background: -moz-linear-gradient(#4a4949, #8b8b8b, #393939, #4a4949);
-    background: linear-gradient(#4a4949, #8b8b8b, #393939, #4a4949);
+    background: linear-gradient(#4a4949, #8b8b8b, #393939, #4a4949);   
+    font-family: Helvetica, sans-serif;
+}
+
+#coiner > .messagedisplayer {   
+    width: 75%;
+    margin-bottom: 25px;
+}
+
+#coiner > form > label {
+    float: left;
+    width: 20%;
+    margin-left: 20%;
+    text-align: right;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+#coiner > form > input[type=text], input[type=password] {
+    padding: 8px;
+    margin: -9px 0px 20px 30px;
+    border: 4px solid #555;
+    border-radius: 4px;
+    background-color: #e0e5e3;
+    box-sizing: border-box;
+    color: darkslategray;
+    font-size: 12px;
+}
+
+#coiner > form > input[type=text]:focus, input[type=password]:focus {
+    border: 4px solid #c0c1c0;
+    background-color: #f1f5f4;
+    color: #2465a5;
+}
+
+#coiner > form > input[type=submit] {
+    width: 75px;
+    height: 125px;
+    position: relative;
+    top: -155px;
+    left: 70%;
+    background-color: firebrick;
+    border: 8px solid black;
+    color: #e0e5e3;
+    border-radius: 3px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
 }

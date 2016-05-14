@@ -9,6 +9,14 @@ var game = {
     requiredImages : 0,
     currentText : "",
     textsArray : [],
+    settings : {
+            username: null,
+            score: {
+                besttime: 0,
+                bestacc: 0,
+                bestwpm: 0
+            }              
+               },
     introMessage: $("#intro-message").html(),
     screenDelays: 500,
     state : null,
@@ -70,6 +78,27 @@ function stateManager(externalInput)
     }
 }
 
+function elaborateHiscore()
+{
+    var personal = "Your hiscore:<br />----------------<br />Best time - "+game.settings.score.besttime+"s" + "<br />Best accuracy - " +game.settings.score.bestacc+"%" + "<br />Best gross WPM - "+game.settings.score.bestwpm+"<br />----------------<br />";
+    
+    $.ajax({
+    type        : 'POST',
+    url         : 'check_user.php',
+    dataType    : 'json',
+    encode      : true
+        })
+    .done(function(data){        
+        if(data)
+        {
+            game.settings = data;
+            setUser();
+        }
+    });
+    
+    var global = "<br /><br />"
+}
+
 function switchScreen()
 {
     ship.ignitedEngine = false;
@@ -79,7 +108,7 @@ function switchScreen()
         
         if(game.state == "hi-score")
         {
-           var displayText = "<span style='color:green;'>your high-score: </span>"; 
+           var displayText = ""; 
         }
         else if(game.state == "init")
         {

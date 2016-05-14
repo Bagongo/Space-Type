@@ -72,8 +72,8 @@
               style="fill:#6C006E;stroke:purple;stroke-width:8" />
             <ellipse cx="75" cy="77" rx="30" ry="12"
               style="fill:yellow;stroke:yellow;stroke-width:4" />
-            <text x="75" y="30" text-anchor="middle" fill="blue"
-                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px">ABOUT</text>
+            <text x="75" y="30" text-anchor="middle" fill="blue "
+                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px ">ABOUT</text>
         </svg>
         
         <svg class="deck-button">
@@ -87,22 +87,55 @@
              
     </div>
     
+    <div id="deck-front">
+        
+            <div class="messagedisplayer" id="login-result">login</div>
+                          
+            <form id="login-form" method="post">
+                    <input type="submit" value="Log In!" />
+                <br />
+
+                <input type="text" name="username" placeholder="username" value="" />
+                <br />
+                <input type="password" name="pw" placeholder="password" value="" />
+                <button type="button" id="logout-btn" value="Log Out!">Log Out!</button>
+                <br />
+            </form>                
+        
+    </div>
+    
     <div id="footer" class="frame-element">
 
         <div id="coiner">
+            
+            <div class="messagedisplayer" id="signup-result" >SIGN UP HERE:</div>
+            
+            <form id="signup-form" method="post">
+                <label for="username">Choose a user name </label>
+                <input type="text" name="username" placeholder="3 to 12 characters" value="" />
+                <br />
+                <label for="pw">Choose a password </label>
+                <input type="password" name="pw" placeholder="at least 8 characters" value="" />
+                <br />
+                <label for="confirmpw">Confirm password </label>
+                <input type="password" name="confirmpw" placeholder="input same as above" value="" />
+                <br />
+                <input type="submit" value="Sign Up!" />
+            </form>
             
         </div>
                     
     </div>
 
     
-        <script type="text/javascript" src="cabinet.js"></script>
         <script type="text/javascript" src="howler.min.js"></script> 
         <script type="text/javascript" src="audio_manager.js"></script>    
         <script type="text/javascript" src="game.js"></script>
         <script type="text/javascript" src="ship.js"></script>
         <script type="text/javascript" src="background_manager.js"></script>
-        <script type="text/javascript" src="main.js"></script>  
+        <script type="text/javascript" src="main.js"></script> 
+        <script type="text/javascript" src="cabinet.js"></script>
+
           
 </body>
 </html>
