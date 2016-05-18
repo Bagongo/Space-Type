@@ -40,6 +40,7 @@
                     Try to be as precise and fast as you can!<br />
                     Once you are ready to start, type:<br />
                 </span>
+                <span id="about-message">Something Something Something Something</span>
             </div>
 
         </div>
@@ -89,18 +90,20 @@
     
     <div id="deck-front">
         
-            <div class="messagedisplayer" id="login-result">login</div>
-                          
-            <form id="login-form" method="post">
-                    <input type="submit" value="Log In!" />
-                <br />
-
-                <input type="text" name="username" placeholder="username" value="" />
-                <br />
-                <input type="password" name="pw" placeholder="password" value="" />
+        <div class="messagedisplayer" id="login-result">login</div>
+        
+        <form id="login-form" method="post">
+            <input type="submit" value="Log In!" />
+            <br />
+            <input type="text" name="username" placeholder="username" value="" />
+            <br />
+            <input type="password" name="pw" placeholder="password" value="" />
+            
+            <div id="loggeduser">
+                <div></div>
                 <button type="button" id="logout-btn" value="Log Out!">Log Out!</button>
-                <br />
-            </form>                
+            </div>
+        </form>
         
     </div>
     
@@ -108,8 +111,8 @@
 
         <div id="coiner">
             
-            <div class="messagedisplayer" id="signup-result" >SIGN UP HERE:</div>
-            
+            <h1>register</h1>
+                        
             <form id="signup-form" method="post">
                 <label for="username">Choose a user name </label>
                 <input type="text" name="username" placeholder="3 to 12 characters" value="" />
@@ -122,6 +125,9 @@
                 <br />
                 <input type="submit" value="Sign Up!" />
             </form>
+            
+            <div class="messagedisplayer" id="signup-result" >coiner</div>
+
             
         </div>
                     

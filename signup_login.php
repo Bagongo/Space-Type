@@ -1,8 +1,7 @@
 <?php
 
+    session_start();
     include("connection.php");
-
-    $loggedIn = false;
 
     $username = "";
     $pw = "";
@@ -14,14 +13,13 @@
     $retrieveCredsStmt = "SELECT `password`, `id` FROM `userinfo` WHERE `username` = ? LIMIT 1";
     $retrieveScoreStmt = "SELECT `besttime`, `bestacc`, `bestwpm` FROM `userscore` WHERE `username`=? LIMIT 1";
 
-
-    function manageCookie()
+    function setIdAndCookie($user)
     {
         $token = md5(uniqid(rand(), TRUE));
         $timeout = time() + 60 * 60 * 24 * 30 * 4;    
         setcookie("auth_k", $token, $timeout);
-        global $loggedIn;
-        $loggedIn = true;
+        $_SESSION["username"] = $user;
+        $_SESSION["loggedIn"] = true;
 
         return $token;
     }
@@ -50,13 +48,10 @@
         return $score;
     }
 
-    if(isset($_COOKIE["auth_k"]))
-    {
-        $loggedIn = true;
+    if(isset($_SESSION["loggedIn"]))
         $errorMsg = "Your are logged in already.<br />Please log out first if you want to register/login as a different user.";
-    }
        
-    if ($_POST["submit"] == "Sign Up!" AND !$loggedIn)
+    if ($_POST["submit"] == "Sign Up!" AND !isset($_SESSION["loggedIn"]))
     {            
         if(!($_POST["username"]))
             $errorMsg .= "You must enter a user name. <br />";
@@ -89,7 +84,7 @@
         
         if(!$errorMsg)
         {
-            $auth = manageCookie();
+            $auth = setIdAndCookie($username);
             $date = date("Y-m-d H:i:s");
             
             $stmt = $connection001->prepare($signupStmt);
@@ -103,11 +98,11 @@
             $stmt->execute();
             $stmt->close();
             
-            $scoreData = returnScoresArray($username, $connection001, $retrieveScoreStmt);
+            $score = returnScoresArray($username, $connection001, $retrieveScoreStmt);            
         }        
     }
 
-    if($_POST["submit"] == "Log In!" AND !$loggedIn)
+    if($_POST["submit"] == "Log In!" AND !isset($_SESSION["loggedIn"]))
     {
         if(!$_POST["username"] OR !$_POST["pw"])
             $errorMsg .= "Please insert your username AND password";
@@ -123,9 +118,9 @@
                 $errorMsg = "Your typed in a wrong username/password combination"; 
             else
             {
-                $query = "UPDATE `userinfo` SET `auth`='".manageCookie()."' WHERE `id`='".$id."'";
-                mysqli_query($connection001, $query);
                 $username = $_POST["username"];
+                $query = "UPDATE `userinfo` SET `auth`='".setIdAndCookie($username)."' WHERE `id`='".$id."'";
+                mysqli_query($connection001, $query);
                 $score = returnScoresArray($username, $connection001, $retrieveScoreStmt);
             }
             
@@ -133,10 +128,12 @@
         }            
     }
 
-    $data = array("loggedIn" => $loggedIn, "username" => $username, "scoreData" => $score, "errorMsg" => $errorMsg); //more info to be passed............       
+    if(!$errorMsg)
+        $data = array("loggedIn" => $_SESSION["loggedIn"], "username" => $username, "score" => $score); //more info to be passed............       
+    else
+        $data = array("errorMsg" => $errorMsg);
+
     echo json_encode($data); 
-
-
 
 //    function test_input($data) {
 //      $data = trim($data);

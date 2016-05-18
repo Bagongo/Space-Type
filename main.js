@@ -22,7 +22,7 @@
             
             engineFxMan();
                                     
-            $("#controlpanel").html(background.starAcceleration +"\n");            
+            $("#controlpanel").html(game.state);            
         }
         
         function render(){

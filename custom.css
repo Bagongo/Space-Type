@@ -8,28 +8,12 @@ body {
     height: 175px;
     background-color: #151f3b;
     border-bottom: 40px solid #0d1426;
-    /*padding-top: 25px;*/
     align-content: center;
-    /* border-top: 20px solid #192c52; */
 }
-
-/*#logo-frame {
-    width: 700px;
-    height: 120px;
-    margin: 0 auto;
-    position: relative;
-    background-color: transparent;
-    border: 15px solid #055f05;
-    border-radius: 70px;
-}*/
 
 #logo {
     position: absolute;
     background-color: transparent;
-}
-
-#logo.animate-neon {
-    text-shadow: 0 0 15px #fff, 0 0 25px #fff, 0 0 35px #007587, 0 0 45px #007587, 0 0 75px #007587, 0 0 85px #007587, 0 0 105px #007587, 0 0 155px #007587;
 }
 
 #screenBG {
@@ -40,17 +24,7 @@ body {
     height: 700px;
     margin: 0 auto;
     padding: 50px 50px;
-    background: #4e4e4e; /* For browsers that do not support gradients */
-    /*
-    background: -webkit-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
-    background: -o-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
-    background: -moz-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
-    background: linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
-    */
-    /*
-    border-left: solid 8px black;
-    border-right: solid 8px black;
-    */    
+    background: #4e4e4e; /* For browsers that do not support gradients */    
 }
 
 #gamescreen{
@@ -84,10 +58,6 @@ canvas{
     display: none;
 }
 
-#intro-message{
-    color: green;
-}
-
 #word-displayer{
     display: none;
     width: 70%;
@@ -101,7 +71,7 @@ canvas{
     padding: 25px;
     text-align: center;
     font-family: monaco, Helvetica, monospace, sans-serif;
-    color: #656503;
+    color: green;
     background-color: transparent;
 }
 
@@ -141,19 +111,19 @@ canvas{
     background-color: #1e2c53;
     border-top: solid 5px #142650;
     border-bottom: solid 40px #162446;
-    padding-top: 75px;
+    padding-top: 50px;
 }
 
 #deck-front > form {
     margin: 0 auto;
-    margin-top: -15px;
-    width: 1200px;
+    margin-top: -50px;
+    width: 100%;
     height: 50%;
 }
 
 #deck-front > form > input{
     position: relative;
-    left: 44px;
+    left: 140px;
     top: -85px;
     margin: 4px 4px;
     padding: 8px;
@@ -167,7 +137,8 @@ canvas{
 }
 
 #deck-front > form > input[type=submit] {
-    left: -100px;
+    position: relative;
+    left: 0px;
     top: 7px;
     width: 85px;
     height: 85px;
@@ -180,23 +151,37 @@ canvas{
     margin-left: 50px;
 }
 
+#deck-front > .messagedisplayer { 
+    border: 8px solid #2c2e2f;
+    background-color: black;
+    border-radius: 12px;
+    width: 500px;
+    height: 50px;
+}
+
+#loggeduser{
+    position: relative;
+    color: deeppink;
+    width: 350px;
+    left: 72%;
+    top: -155px;
+}
+
+#loggeduser > div {
+    width: 200px;
+    display: inline-block;
+}
+
 #logout-btn{
+    position: relative;
+    right: -40px;
     width: 100px;
     height: 50px;
-    position: relative;
-    left: 1000px;
-    top: -100px;
-    margin-right: 40px;
-    margin-top: -70px;
     border: 8px solid #dd7d09;
     border-radius: 10%;
     background-color: #fd9516;
     color: whitesmoke;
     font-weight: bold;
-}
-
-#deck-front > .messagedisplayer { 
-    width: 40%;
 }
 
 #footer {
@@ -205,20 +190,14 @@ canvas{
     overflow: hidden;
 }
 
-.messagedisplayer {
-    margin: 0 auto;
-    text-align: center;
-    background-color: white;
-}
-
 #coiner {
     width: 700px;
-    height: 500px;
+    height: 700px;
     margin: 0 auto;
     border: solid 20px #1a1a1a;
     border-radius: 40px;
     margin-top: 100px;
-    padding-top: 25px;
+    padding-top: 0px;
     background-color: darkgrey;
     background: -webkit-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
     background: -o-linear-gradient(#272727, #4e4e4e, #272727, #1a1a1a);
@@ -227,9 +206,20 @@ canvas{
     font-family: Helvetica, sans-serif;
 }
 
-#coiner > .messagedisplayer {   
-    width: 75%;
-    margin-bottom: 25px;
+#coiner > form {
+    background-color: aliceblue;
+}
+
+#coiner > .messagedisplayer { 
+    width: 100%;
+    position: relative;
+    top: -150px;    
+    background-color: forestgreen;
+}
+
+.messagedisplayer {
+    margin: 0 auto;
+    text-align: center;
 }
 
 #coiner > form > label {

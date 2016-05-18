@@ -10,7 +10,8 @@ var game = {
     currentText : "",
     textsArray : [],
     settings : {
-            username: null,
+            loggedIn: false,
+            username: "",
             score: {
                 besttime: 0,
                 bestacc: 0,
@@ -18,6 +19,7 @@ var game = {
             }              
                },
     introMessage: $("#intro-message").html(),
+    aboutMessage : $("#about-message").html(),
     screenDelays: 500,
     state : null,
     prevState: null,
@@ -37,6 +39,8 @@ function getRandomInt(min, max) {
 
 function stateManager(externalInput)
 {
+    alert(game.state);
+    
     if(externalInput)
     {   
         game.state = externalInput;
@@ -45,11 +49,21 @@ function stateManager(externalInput)
         {
             case "play":
                 game.state = "init";
+                
                 switchScreen();
+                    alert(game.state);
+
                 break;
             case "hi-score":
                 switchScreen();
-                break;               
+                    alert(game.state);
+
+                break;
+            case "about":
+                switchScreen();
+                    alert(game.state);
+
+                break;
         }
     }
     else
@@ -59,16 +73,22 @@ function stateManager(externalInput)
             case null:
                 game.state = "init";
                 formatText();
+                    alert(game.state);
+
                 break;
             case "init":
             case "score":
                 game.state = "game";
                 levelAndScoreMan();
                 formatText();
+                    alert(game.state);
+
                 break;
             case "game": 
                 game.state = "score";
                 levelAndScoreMan();
+                    alert(game.state);
+
                 break;
             default :
                 $("#word-displayer").slideUp("250", function(){
@@ -78,43 +98,70 @@ function stateManager(externalInput)
     }
 }
 
-function elaborateHiscore()
+function displayHiscore(data)
 {
-    var personal = "Your hiscore:<br />----------------<br />Best time - "+game.settings.score.besttime+"s" + "<br />Best accuracy - " +game.settings.score.bestacc+"%" + "<br />Best gross WPM - "+game.settings.score.bestwpm+"<br />----------------<br />";
+    var localBestMsg;
     
+    if(game.settings.score.besttime == 0)
+        localBestMsg = "You havent't set any hi-score yet<br />or you are not logged in...";
+    else    
+        localBestMsg = "Your Hi-score:<br />----------------<br />Best time - "+game.settings.score.besttime+"s" + "<br />Best accuracy - " + game.settings.score.bestacc+"%" + "<br />Best gross WPM - " + game.settings.score.bestwpm + "<br />----------------<br />";
+
+    var globalbestMsg = "<br /><br />World's Best Spacetypers:<br />----------------<br /><br />";
+    var medals = ["#fcbc47", "#A8A8A8", "#965A38"];
+    for (var i in data)  
+        globalbestMsg += ("<span style='color:"+medals[i]+"'>" + (i*1+1) + ": " + data[i][0] + " - Fastest type: " + data[i][1]+ "</span><br /><br />");
+
+    var htmlToDisplay = localBestMsg +"<br />"+ globalbestMsg + "----------------"
+
+    $("#word-displayer").html(htmlToDisplay).slideDown(game.screenDelays);
+}
+
+function getSetHighscore(newHiscore)
+{            
     $.ajax({
     type        : 'POST',
-    url         : 'check_user.php',
+    url         : 'get_set_hiscore.php',
+    data        : newHiscore,
     dataType    : 'json',
     encode      : true
         })
-    .done(function(data){        
-        if(data)
-        {
-            game.settings = data;
-            setUser();
-        }
+    .done(function(data){       
+        if(!newHiscore && data)
+            displayHiscore(data);
     });
-    
-    var global = "<br /><br />"
 }
 
 function switchScreen()
 {
+
+    alert("in switchsSreen");
+    
+    $(document).off();
+    
     ship.ignitedEngine = false;
     ship.animate = true;
+    
+    var displayText;
     
     $("#word-displayer").slideUp(game.screenDelays, function(){
         
         if(game.state == "hi-score")
         {
-           var displayText = ""; 
+            getSetHighscore();
+            return;           
         }
         else if(game.state == "init")
         {
             formatText();
             return;
         }
+        else if(game.state == "about")
+        {
+            displayText = game.aboutMessage;                       
+        }
+        
+        //following code not reachable. Use switch statement instead?????
         
         $(this).html(displayText);
         
@@ -123,6 +170,8 @@ function switchScreen()
 
 function screenCleared()
 {
+        alert("in in screen cleared");
+
     ship.animate = true;
     
     $("#word-displayer").slideUp(game.screenDelays, function(){
@@ -136,23 +185,56 @@ function screenCleared()
     });
 }
 
+function elaborateScore()
+{
+    var time = Number((($.now() - game.lvlTime)/1000).toFixed(2));
+    var accuracy = Number(((game.keyStrokes - game.errorCount) / game.keyStrokes * 100).toFixed(1));
+    var wpm = Number(((game.keyStrokes / 5) / (time/60)).toFixed(1));
+    
+    var newBest;
+    var hiscorePrep = "*** NEW HI-SCORE *** - ";
+
+    if(time < game.settings.score.besttime || game.settings.score.besttime == 0)
+    {
+        newBest = true;
+        game.settings.score.besttime = time;
+        time = hiscorePrep + time;
+    }
+    if(accuracy > game.settings.score.bestacc)
+    {
+        newBest = true;
+        game.settings.score.bestacc = accuracy;
+        accuracy = hiscorePrep + accuracy;
+    }
+    if(wpm > game.settings.score.bestwpm)
+    {
+        newBest = true;
+        game.settings.score.bestwpm = wpm;
+        wpm = hiscorePrep + wpm;        
+    }
+   
+    var elaboratedScore = {time:time, accuracy:accuracy, wpm:wpm};
+    
+    return {elaboratedScore:elaboratedScore, newBest:newBest};    
+}
+
 function levelAndScoreMan()
 { 
     if(game.state == "init")
         game.currentLevel = 0;
-    if(game.state == "game")
-    {
+    else if(game.state == "game")
         game.currentLevel++;
-        game.errorCount = 0;
-        game.keyStrokes = 0;
-    }
     else if (game.state == "score")
     {
-        var time = (($.now() - game.lvlTime)/1000).toFixed(2);
-        var wpm = ((game.keyStrokes / 5) / (time/60)).toFixed(1);
-        var accuracy = Math.round((game.keyStrokes - game.errorCount) / game.keyStrokes * 100).toFixed(1);
-        formatText(time, accuracy, wpm);
-    } 
+        var scoreResult = elaborateScore();    
+        formatText(scoreResult.elaboratedScore.time, scoreResult.elaboratedScore.accuracy, scoreResult.elaboratedScore.wpm);
+        
+        if(scoreResult.newBest && game.settings.loggedIn)               
+            getSetHighscore(game.settings.score);
+    }
+    
+    game.errorCount = 0;
+    game.keyStrokes = 0; 
 }
 
 function formatText(time, accuracy, wpm)
@@ -168,7 +250,7 @@ function formatText(time, accuracy, wpm)
 
     if(game.state == "score")
     {                      
-        fixedText = "GOOD TYPING!<br /><br />Your stats:<br />----------------<br />Time - " + time + "s" + "<br />Accuracy - " + accuracy + "%" + "<br />Gross WPM - "+ wpm +"<br />----------------<br />Ready for another ride? <br /><br />";
+        fixedText = "GOOD TYPING!<br /><br />Your stats:<br />----------------<br />Time - " + time + "s" + "<br />Accuracy - " + accuracy + "%" + "<br />Gross WPM - " + wpm + "<br />----------------<br />Ready for another ride? <br /><br />";
         game.currentText = game.textsArray[0];
     }
 
@@ -178,9 +260,9 @@ function formatText(time, accuracy, wpm)
     }
     
         for(var i=0; i<game.currentText.length; i++)
-            textToType += "<span id='char"+i+"'>"+game.currentText[i]+"</span>";
+            textToType += "<span id='char"+i+"' style='color:#656503'>"+game.currentText[i]+"</span>";
    
-    $("#word-displayer").html("<span style='color:green;'>"+fixedText+"</span>" + "<br />" + textToType);
+    $("#word-displayer").html( fixedText + "<br />" + textToType);
 
     displayText();
 }
@@ -198,10 +280,6 @@ function detectTyping()
     var errorMarked = false;
     game.lvlTime = $.now();
 
-    $(document).on("keypress", function(){
-        game.keyStrokes++;
-    });
-
     $(document).on("keyup", function(){
 
         errorMarked = false;
@@ -216,6 +294,8 @@ function detectTyping()
     });                      
 
     $(document).on("keypress", function(event){
+        
+        game.keyStrokes++;
 
         if(event.which == 32  || event.which == 39)
             event.preventDefault();
