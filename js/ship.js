@@ -8,9 +8,9 @@
         animate : false,
         beenOut : true,
         lettersToSpitOut : [],
-        letterStartRight: (Math.random() < .5) ? true : false,
+        letterStartRight: (Math.random() < 0.5) ? true : false,
         ignitedEngine: false
-    }
+    };
     
     function shipAnimation()
     {
@@ -48,7 +48,7 @@
 
     function afterBurner() //rectangle
     {
-        var w = Math.min(ship.width-15, background.starAcceleration*2 +15);
+        var w = Math.min(ship.width-15, background.starAcceleration*4 +15);
         var h = game.height + 100;
         var y = ship.y + 40;
         var x;
@@ -61,10 +61,10 @@
         function updateLetters()
         {
             var xLimit = 5;
-            for(i in ship.lettersToSpitOut)
+            for(var i in ship.lettersToSpitOut)
             {
                 ship.lettersToSpitOut[i].y += Math.min(10, 10/background.starAcceleration);
-                ship.lettersToSpitOut[i]. x += ship.lettersToSpitOut[i].drift * (background.starAcceleration/5);
+                ship.lettersToSpitOut[i]. x += ship.lettersToSpitOut[i].drift * (background.starAcceleration/3);
 
                 if(ship.lettersToSpitOut[i].x > x + w - xLimit*2.5)
                     ship.lettersToSpitOut[i].drift = -1;
@@ -79,7 +79,7 @@
         updateLetters();
 
         var grV = ship.context.createLinearGradient(x, y, x+w, y);
-        grV.intensity = 0.3 + background.starAcceleration / 15;
+        grV.intensity = 0.3 + background.starAcceleration / 7;
 
         if(ship.animate && ship.y < ship.yMark)
             grV.intensity += ship.y / 50; 
@@ -91,7 +91,7 @@
         grV.addColorStop(1, "rgba(241,247,127,"+grV.intensity+")");
 
         ship.context.fillStyle = grV;
-        ship.context.fillRect(x, y, w, h)
+        ship.context.fillRect(x, y, w, h);
     }
 
     function addLetterToSpit(letter)
@@ -122,7 +122,7 @@
         var font = "bold 16px monaco, Helvetica, monospace, sans-serif";
         ship.context.font = font;
         
-        for(i in ship.lettersToSpitOut)
+        for(var i in ship.lettersToSpitOut)
         {
             var letterToDraw = ship.lettersToSpitOut[i];
             ship.context.fillText(letterToDraw.letter, letterToDraw.x, letterToDraw.y);
@@ -133,10 +133,10 @@
     {
         var boost = engineFx.rate();
         
-        if(boost < background.starAcceleration/5)
-            boost += (background.starAcceleration/5 - boost) / 60;
-        else if(boost > background.starAcceleration/5)
-            boost -= (boost - background.starAcceleration/5) / 60;
+        if(boost < background.starAcceleration/2)
+            boost += (background.starAcceleration/2 - boost) / 60;
+        else if(boost > background.starAcceleration/2)
+            boost -= (boost - background.starAcceleration/2) / 60;
         
         engineFx.rate(boost);
     }

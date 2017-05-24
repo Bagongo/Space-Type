@@ -10,7 +10,7 @@
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
  
-    <link rel="stylesheet" type="text/css" href="custom.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
      
 </head>
   
@@ -35,7 +35,7 @@
 
             <div id="word-displayer">
                 <span id="intro-message">
-                    WELCOME TO SPACE TYPE!<br /><br />
+                    WELCOME <span>TO SPACE TYPE</span>!<br /><br />
                     To proceed onto your journey you'll have to type the text on the screen (case-sensitively).<br />
                     Try to be as precise and fast as you can!<br />
                     Once you are ready to start, type:<br />
@@ -48,100 +48,99 @@
     </div>
     
     
-    <div id="deck" class="frame-element">
+    <div id="deck">
         
-        <svg class="deck-button">
-            <ellipse cx="75" cy="75" rx="40" ry="20"
+        <svg class="deck-button hover-enabled">
+            <ellipse cx="75" cy="125" rx="40" ry="20"
               style="fill:#6C006E;stroke:purple;stroke-width:8" />
-            <ellipse cx="75" cy="77" rx="30" ry="12"
+            <ellipse cx="75" cy="127" rx="30" ry="12"
               style="fill:yellow;stroke:yellow;stroke-width:4" />
-            <text x="75" y="30" text-anchor="middle" fill="blue"
-                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px">PLAY</text>
+            <text x="75" y="25" text-anchor="middle" fill="#22356a"
+                  style="font-family:monaco; font-weight:bold; font-size:30px">PLAY</text>
         </svg>
         
-        <svg class="deck-button">
-            <ellipse cx="75" cy="75" rx="40" ry="20"
+        <svg class="deck-button hover-enabled">
+            <ellipse cx="75" cy="125" rx="40" ry="20"
               style="fill:#6C006E;stroke:purple;stroke-width:8" />
-            <ellipse cx="75" cy="77" rx="30" ry="12"
+            <ellipse cx="75" cy="127" rx="30" ry="12"
               style="fill:yellow;stroke:yellow;stroke-width:4" />
-            <text x="75" y="30" text-anchor="middle" fill="blue"
-                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px">HI-SCORE</text>
+            <text x="75" y="25" text-anchor="middle" fill="#22356a"
+                  style="font-family:monaco; font-weight:bold; font-size:30px">HI-SCORE</text>
         </svg>
         
-        <svg class="deck-button">
-            <ellipse cx="75" cy="75" rx="40" ry="20"
+        <svg class="deck-button hover-enabled">
+            <ellipse cx="75" cy="125" rx="40" ry="20"
               style="fill:#6C006E;stroke:purple;stroke-width:8" />
-            <ellipse cx="75" cy="77" rx="30" ry="12"
+            <ellipse cx="75" cy="127" rx="30" ry="12"
               style="fill:yellow;stroke:yellow;stroke-width:4" />
-            <text x="75" y="30" text-anchor="middle" fill="blue "
-                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px ">ABOUT</text>
+            <text x="75" y="25" text-anchor="middle" fill="#22356a"
+                  style="font-family:monaco; font-weight:bold; font-size:30px">ABOUT</text>
         </svg>
         
-        <svg class="deck-button">
-            <ellipse cx="75" cy="75" rx="40" ry="20"
+        <svg class="deck-button hover-enabled">
+            <ellipse cx="75" cy="125" rx="40" ry="20"
               style="fill:#6C006E;stroke:purple;stroke-width:8" />
-            <ellipse cx="75" cy="77" rx="30" ry="12"
+            <ellipse cx="75" cy="127" rx="30" ry="12"
               style="fill:yellow;stroke:yellow;stroke-width:4" />
-            <text x="75" y="30" text-anchor="middle" fill="blue"
-                  style="font-family: monaco, sans-serif; font-weight: bold; font-size: 30px">INFO</text>
-        </svg> 
+            <text x="75" y="25" text-anchor="middle" fill="#22356a"
+                  style="font-family:monaco; font-weight:bold; font-size:30px">INFO</text>
+        </svg>
              
     </div>
     
     <div id="deck-front">
-        
-        <div class="messagedisplayer" id="login-result">login</div>
-        
+
+        <div class="messagedisplayer" id="login-result"></div>
+                
         <form id="login-form" method="post">
-            <input type="submit" value="Log In!" />
+            <input class="login-element form-button" type="submit" value="Log In" />
             <br />
-            <input type="text" name="username" placeholder="username" value="" />
+            <input class="login-element" type="text" name="username" placeholder="username" value="" />
             <br />
-            <input type="password" name="pw" placeholder="password" value="" />
-            
-            <div id="loggeduser">
-                <div></div>
-                <button type="button" id="logout-btn" value="Log Out!">Log Out!</button>
-            </div>
+            <input class="login-element" type="password" name="pw" placeholder="password" value="" />     
         </form>
+        
+        <div id="loggeduser">
+            <div><div></div></div>
+            <button class="form-button" type="button" id="logout-btn" value="Log Out">Log Out</button>       
+        </div>
         
     </div>
     
-    <div id="footer" class="frame-element">
+    <div id="footer">
 
         <div id="coiner">
             
-            <h1>register</h1>
+            <h2>Register:</h2>
                         
             <form id="signup-form" method="post">
                 <label for="username">Choose a user name </label>
-                <input type="text" name="username" placeholder="3 to 12 characters" value="" />
+                <input class="signup-element" type="text" name="username" placeholder="3 to 12 characters" value="" />
                 <br />
                 <label for="pw">Choose a password </label>
-                <input type="password" name="pw" placeholder="at least 8 characters" value="" />
+                <input class="signup-element" type="password" name="pw" placeholder="at least 8 characters" value="" />
                 <br />
                 <label for="confirmpw">Confirm password </label>
-                <input type="password" name="confirmpw" placeholder="input same as above" value="" />
+                <input class="signup-element" type="password" name="confirmpw" placeholder="input same as above" value="" />
                 <br />
-                <input type="submit" value="Sign Up!" />
+                <input class="form-button" type="submit" value="Sign Up" />
             </form>
             
-            <div class="messagedisplayer" id="signup-result" >coiner</div>
+            <div class="messagedisplayer" id="signup-result" ></div>
 
-            
         </div>
                     
     </div>
 
     
-        <script type="text/javascript" src="howler.min.js"></script> 
-        <script type="text/javascript" src="audio_manager.js"></script>    
-        <script type="text/javascript" src="game.js"></script>
-        <script type="text/javascript" src="ship.js"></script>
-        <script type="text/javascript" src="background_manager.js"></script>
-        <script type="text/javascript" src="main.js"></script> 
-        <script type="text/javascript" src="cabinet.js"></script>
-
+        <script type="text/javascript" src="/js/howler.min.js"></script> 
+        <script type="text/javascript" src="/js/audio_manager.js"></script>    
+        <script type="text/javascript" src="/js/game.js"></script>
+        <script type="text/javascript" src="/js/ship.js"></script>
+        <script type="text/javascript" src="/js/background_manager.js"></script>
+        <script type="text/javascript" src="/js/cabinet.js"></script>
+        <script type="text/javascript" src="/js/main.js"></script> 
+    
           
 </body>
 </html>

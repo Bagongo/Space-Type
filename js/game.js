@@ -27,7 +27,7 @@ var game = {
     lvlTime : 0,
     errorCount : 0,
     keyStrokes: 0
-}
+};
 
 game.centerX = game.width / 2;
 game.centerY = game.height / 2;
@@ -38,9 +38,7 @@ function getRandomInt(min, max) {
 }
 
 function stateManager(externalInput)
-{
-    alert(game.state);
-    
+{    
     if(externalInput)
     {   
         game.state = externalInput;
@@ -48,21 +46,14 @@ function stateManager(externalInput)
         switch(game.state)
         {
             case "play":
-                game.state = "init";
-                
+                game.state = "init";        
                 switchScreen();
-                    alert(game.state);
-
                 break;
             case "hi-score":
                 switchScreen();
-                    alert(game.state);
-
                 break;
             case "about":
                 switchScreen();
-                    alert(game.state);
-
                 break;
         }
     }
@@ -73,22 +64,16 @@ function stateManager(externalInput)
             case null:
                 game.state = "init";
                 formatText();
-                    alert(game.state);
-
-                break;
+                 break;
             case "init":
             case "score":
                 game.state = "game";
                 levelAndScoreMan();
                 formatText();
-                    alert(game.state);
-
                 break;
             case "game": 
                 game.state = "score";
                 levelAndScoreMan();
-                    alert(game.state);
-
                 break;
             default :
                 $("#word-displayer").slideUp("250", function(){
@@ -102,8 +87,8 @@ function displayHiscore(data)
 {
     var localBestMsg;
     
-    if(game.settings.score.besttime == 0)
-        localBestMsg = "You havent't set any hi-score yet<br />or you are not logged in...";
+    if(game.settings.score.besttime === 0)
+        localBestMsg = "You haven't set any hi-score yet<br />or you are not logged in...";
     else    
         localBestMsg = "Your Hi-score:<br />----------------<br />Best time - "+game.settings.score.besttime+"s" + "<br />Best accuracy - " + game.settings.score.bestacc+"%" + "<br />Best gross WPM - " + game.settings.score.bestwpm + "<br />----------------<br />";
 
@@ -112,7 +97,7 @@ function displayHiscore(data)
     for (var i in data)  
         globalbestMsg += ("<span style='color:"+medals[i]+"'>" + (i*1+1) + ": " + data[i][0] + " - Fastest type: " + data[i][1]+ "</span><br /><br />");
 
-    var htmlToDisplay = localBestMsg +"<br />"+ globalbestMsg + "----------------"
+    var htmlToDisplay = localBestMsg + "<br />" + globalbestMsg + "----------------";
 
     $("#word-displayer").html(htmlToDisplay).slideDown(game.screenDelays);
 }
@@ -121,7 +106,7 @@ function getSetHighscore(newHiscore)
 {            
     $.ajax({
     type        : 'POST',
-    url         : 'get_set_hiscore.php',
+    url         : '/php/get_set_hiscore.php',
     data        : newHiscore,
     dataType    : 'json',
     encode      : true
@@ -133,10 +118,7 @@ function getSetHighscore(newHiscore)
 }
 
 function switchScreen()
-{
-
-    alert("in switchsSreen");
-    
+{    
     $(document).off();
     
     ship.ignitedEngine = false;
@@ -170,8 +152,6 @@ function switchScreen()
 
 function screenCleared()
 {
-        alert("in in screen cleared");
-
     ship.animate = true;
     
     $("#word-displayer").slideUp(game.screenDelays, function(){
@@ -193,26 +173,29 @@ function elaborateScore()
     
     var newBest;
     var hiscorePrep = "*** NEW HI-SCORE *** - ";
-
-    if(time < game.settings.score.besttime || game.settings.score.besttime == 0)
-    {
-        newBest = true;
-        game.settings.score.besttime = time;
-        time = hiscorePrep + time;
+    
+    if(game.settings.loggedIn)
+    { 
+        if(time < game.settings.score.besttime || game.settings.score.besttime === 0)
+        {
+            newBest = true;
+            game.settings.score.besttime = time;
+            time = hiscorePrep + time;
+        }
+        if(accuracy > game.settings.score.bestacc)
+        {
+            newBest = true;
+            game.settings.score.bestacc = accuracy;
+            accuracy = hiscorePrep + accuracy;
+        }
+        if(wpm > game.settings.score.bestwpm)
+        {
+            newBest = true;
+            game.settings.score.bestwpm = wpm;
+            wpm = hiscorePrep + wpm;        
+        }
     }
-    if(accuracy > game.settings.score.bestacc)
-    {
-        newBest = true;
-        game.settings.score.bestacc = accuracy;
-        accuracy = hiscorePrep + accuracy;
-    }
-    if(wpm > game.settings.score.bestwpm)
-    {
-        newBest = true;
-        game.settings.score.bestwpm = wpm;
-        wpm = hiscorePrep + wpm;        
-    }
-   
+    
     var elaboratedScore = {time:time, accuracy:accuracy, wpm:wpm};
     
     return {elaboratedScore:elaboratedScore, newBest:newBest};    
@@ -245,7 +228,7 @@ function formatText(time, accuracy, wpm)
     if(game.state == "init")
     {
         fixedText = game.introMessage;
-        game.currentText = game.textsArray[0];
+        game.currentText = game.textsArray[0];            
     }
 
     if(game.state == "score")

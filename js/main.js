@@ -1,21 +1,27 @@
         
         function init(){
            
-            addStars(500, 1) 
+            addStars(500, 1); 
+                        
+            //'manually' push the play button at load, 
+            //if needed instead use:
+            //ship.animate = true;
+            //stateManager();
             
-            ship.animate = true;
-            
-            stateManager();
+            $(".deck-button:first").click();
             
             loop();           
         }
         
         function update(){
             
-            addStars(neededStars(), 2);           
+            if(background.stars.length < 500)
+                addStars(neededStars(), 2);
+            
             updateStars();
             
-            decelarateStars(2.5);
+            if (background.starAcceleration > 1)
+                decelarateStars(3);
             
             if(ship.animate)
                 shipAnimation();
@@ -27,22 +33,25 @@
         
         function render(){
             
-            ship.context.clearRect(ship.x, ship.y, ship.width, game.height - ship.y);
-                                     
-            if(ship.ignitedEngine)
+            if(ship.animate || ship.ignitedEngine)
             {
-                if(!ship.animate && ship.lettersToSpitOut.length > 0)
-                    spitLetters(); 
+                ship.context.clearRect(ship.x, ship.y, ship.width, game.height - ship.y);
 
-                afterBurner();
+                if(ship.ignitedEngine)
+                {
+                    if(!ship.animate && ship.lettersToSpitOut.length > 0)
+                        spitLetters(); 
+
+                    afterBurner();
+                }
+
+                ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
             }
-
-            ship.context.drawImage(game.images[0], ship.x, ship.y, ship.width, ship.height);
                                           
             background.context.fillStyle = "white";            
             background.context.clearRect(0, 0, game.width, game.height);
             //creates rects -stars- for every element in the background.stars array
-            for(i in background.stars)
+            for(var i in background.stars)
             {
                 var individualStar = background.stars[i];
                 background.context.fillRect(individualStar.x, 
@@ -72,9 +81,9 @@
                 dataType: "text",
                 success: function(text){
                     game.textsArray = text.split("\n");
-                    for(i in game.textsArray)
+                    for(var i in game.textsArray)
                     {
-                        if(game.textsArray[i] == "")
+                        if(game.textsArray[i] === "")
                             game.textsArray.splice(i,1);
                     }                  
                     init();
@@ -87,7 +96,7 @@
         {            
             game.requiredImages = paths.length;
             
-            for(i in paths)
+            for(var i in paths)
             {
                 var img = new Image();
                 img.src = paths[i];

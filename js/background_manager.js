@@ -7,12 +7,11 @@
         maxAcceleration: 30,
         residualAcceleration : 0,
         residualFrequency : 1
-    }
+    };
    
     function neededStars()
     {        
-        if(background.stars.length < 500)
-            return 500 - background.stars.length;
+        return 500 - background.stars.length;
     }
 
     function addStars(num, type)
@@ -30,15 +29,15 @@
             else if(type == 3)
                 starH = Math.floor((Math.random() * game.height) - game.height);
 
-            if(Math.random() > .5)
+            if(Math.random() > 0.5)
             {
                 starS = Math.random() * getRandomInt(1,2);
-                starSpeed = .5;
+                starSpeed = 1;
             }
             else
             {
                 starS = Math.random() * getRandomInt(3,4); 
-                starSpeed = 1;
+                starSpeed = 2;
             }
 
             background.stars.push({
@@ -52,9 +51,9 @@
 
     function updateStars()
     {               
-        for(i in background.stars)
+        for(var i in background.stars)
         {     
-            background.stars[i].y += (background.stars[i].speed * background.starAcceleration);
+            background.stars[i].y += Math.round((background.stars[i].speed * background.starAcceleration));
 
             if(background.stars[i].y > game.height)
                 background.stars.splice(i,1);
@@ -72,10 +71,10 @@
     function thruster(onward)
     {
         if(onward)
-            background.starAcceleration = Math.min(background.maxAcceleration, background.starAcceleration + 1);
+            background.starAcceleration = Math.min(background.maxAcceleration, background.starAcceleration + 0.5);
         else
         { 
-            background.starAcceleration =  Math.max(1, background.starAcceleration - 0.5);
+            background.starAcceleration =  Math.max(1, background.starAcceleration - 0.3);
             
             if(!brakeFx.paused)
                 brakeFx.currentTime=0;

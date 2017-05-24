@@ -51,7 +51,7 @@
     if(isset($_SESSION["loggedIn"]))
         $errorMsg = "Your are logged in already.<br />Please log out first if you want to register/login as a different user.";
        
-    if ($_POST["submit"] == "Sign Up!" AND !isset($_SESSION["loggedIn"]))
+    if ($_POST["submit"] == "Sign Up" AND !isset($_SESSION["loggedIn"]))
     {            
         if(!($_POST["username"]))
             $errorMsg .= "You must enter a user name. <br />";
@@ -102,7 +102,7 @@
         }        
     }
 
-    if($_POST["submit"] == "Log In!" AND !isset($_SESSION["loggedIn"]))
+    if($_POST["submit"] == "Log In" AND !isset($_SESSION["loggedIn"]))
     {
         if(!$_POST["username"] OR !$_POST["pw"])
             $errorMsg .= "Please insert your username AND password";
